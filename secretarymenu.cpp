@@ -246,9 +246,12 @@ void SecretaryMenu::addAgent(AgentList* aList)
     cout << "\nAGREGAR NUEVO AGENTE\n\n";
     cout << "Agente agregado Exitosamente";
 
-    //TEST
-    cout << "\n\n" << nag->toString(false); //checar getters y tostring de agent
-    //TEST END
+    cout << "\n\n" << nag->toString(false);
+    /*
+    Datos almacenados correctamente ?
+    en caso de que si, sale del método.
+    En caso de que no, llama a modificar agente con este agente creado.
+    */
     pause();
 }
 
@@ -278,7 +281,7 @@ void SecretaryMenu::delAgent(AgentList* aList)
                 cout << "Desea eliminar este Agente? (S/N): ";
                 cin >> c;
 
-                toupper(c);
+                c = toupper(c);
 
                 if (c == 'S')
                 {
@@ -310,23 +313,25 @@ void SecretaryMenu::delAgent(AgentList* aList)
 void SecretaryMenu::showAgentList(AgentList* aList)
 {
     DoubleNode* aux = aList->getFirstPos();
-    int op;
+    char op;
     bool myBool;
 
     do {
         system("cls");
         cout << "Menu Mostrar lista de agentes" << endl << endl;
-        cout << "Mostrar Lista de llamadas?[1/0]\n: ";
+        cout << "Mostrar Lista de llamadas?[S/N]\n: ";
         cin >> op;
 
-        if (op != 1 && op != 0) {
+        op = toupper(op);
+
+        if (op != 'S' && op != 'N') {
             system("cls");
             cout << "Selecciona una opcion del menu";
             pause();
         }
-    } while (op != 1 && op != 0);
+    } while (op != 'S' && op != 'N');
 
-    if (op == 1) {
+    if (op == 'S') {
         myBool = true;
     }
     else {
@@ -363,7 +368,7 @@ void SecretaryMenu::findAgent(AgentList* aList)
     system("cls");
     cout << "Menu Buscar Agente" << endl
         << endl;
-    cout << "N� de Empelado: ";
+    cout << "Numero de Empelado: ";
     cin >> x;
     myString = to_string(x);
 
