@@ -346,11 +346,7 @@ void SecretaryMenu::showAgentList(AgentList* aList)
         return;
     }
 
-    do
-    {
-        cout << aList->toString(myBool);
-        aux = aux->getNext();
-    } while (aux != nullptr);
+    cout << aList->toString(myBool);
     pause();
 }
 
