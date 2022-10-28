@@ -75,7 +75,7 @@ string ClientList::toString() // E6
     return cadena;
 }
 
-SimplyNode* ClientList::getPreviousPos(const SimplyNode& p)
+SimplyNode* ClientList::getPrevPos(const SimplyNode& p)
 {
     SimplyNode* aux = anchor;
     do
@@ -91,6 +91,22 @@ SimplyNode* ClientList::getPreviousPos(const SimplyNode& p)
 
 SimplyNode* ClientList::getFirstPos() const {
     return anchor;
+}
+
+SimplyNode* ClientList::getLastPos() const
+{
+    SimplyNode* aux = anchor;
+
+    do {
+        aux = aux->getNext();
+    } while (aux->getNext() != nullptr);
+
+    return aux;
+}
+
+SimplyNode* ClientList::getNextPos(SimplyNode& d) const
+{
+    return d.getNext();
 }
 
 void ClientList::deleteClient() // E5 E6
@@ -112,8 +128,6 @@ void ClientList::deleteClient() // E5 E6
 
 void ClientList::insertOrdered(SimplyNode& call) // E6
 {
-    //SimplyNode* call = new SimplyNode();
-    // Inserci�n ordenado del dato
     if (anchor == nullptr)
     {
         anchor = &call;

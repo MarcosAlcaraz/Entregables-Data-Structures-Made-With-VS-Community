@@ -11,7 +11,7 @@ Agent::Agent() { }
 Agent::~Agent() { }
 
 //Constructor un poco menos normalito
-Agent::Agent(const Agent& a) : extensionNumber(a.extensionNumber), specialty(a.specialty), employeeNumber(a.employeeNumber), extraHours(a.extraHours), name(a.name), startTime(a.startTime), endTime(endTime) {}
+Agent::Agent(const Agent& a) : extensionNumber(a.extensionNumber), specialty(a.specialty), employeeNumber(a.employeeNumber), extraHours(a.extraHours), name(a.name), startTime(a.startTime), endTime(a.endTime) {}
 
 //Getters
 //Get De N�mero de empleado

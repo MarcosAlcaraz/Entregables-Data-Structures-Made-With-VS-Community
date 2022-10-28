@@ -28,8 +28,8 @@ public:
 
     SimplyNode* getFirstPos() const;
     SimplyNode* getLastPos() const;
-    SimplyNode* getNextPos() const;
-    SimplyNode* getPreviousPos(const SimplyNode&); // (X) E5
+    SimplyNode* getPrevPos(const SimplyNode&);
+    SimplyNode* getNextPos(SimplyNode&) const;
 
     std::string findData(const Client&) const; // (READY) E5
 

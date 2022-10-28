@@ -14,19 +14,19 @@ void SecretaryMenu::mainMenu()
     {
         system("cls");
         cout << "MENU PRINCIPAL";
-        cout << "\n[          Agentes         ]";
-        cout << "\n\t1) Agregar";
-        cout << "\n\t2) Eliminar";
-        cout << "\n\t3) Mostrar";
-        cout << "\n\t4) Ordenar";
-        cout << "\n\n[         Clientes         ]";
-        cout << "\n\t5) Agregar";
-        cout << "\n\t6) Eliminar";
-        cout << "\n\t7) Modificar";
-        cout << "\n\n[       Guardar/Cargar     ]";
-        cout << "\n\t8) Guardar";
-        cout << "\n\t9) Cargar.";
-        cout << "\n\n: ";
+        cout << endl << endl << "[          Agentes         ]";
+        cout << endl << "\t1) Agregar";
+        cout << endl << "\t2) Eliminar";
+        cout << endl << "\t3) Mostrar";
+        cout << endl << "\t4) Ordenar";
+        cout << endl << endl << "[         Clientes         ]";
+        cout << endl << "\t5) Agregar";
+        cout << endl << "\t6) Eliminar";
+        cout << endl << "\t7) Modificar";
+        cout << endl << endl << "[       Guardar/Cargar     ]";
+        cout << endl << "\t8) Guardar";
+        cout << endl << "\t9) Cargar.";
+        cout << endl << endl << ": ";
 
         cin >> menu0;
 
@@ -77,36 +77,37 @@ void SecretaryMenu::addAgent(AgentList* aList)
 
     // Nombre y Apellido
     system("cls");
-    cout << "\nAGREGAR NUEVO AGENTE\n\n";
+    cout << endl <<"AGREGAR NUEVO AGENTE" << endl << endl;
     cout << "Nombre(s): ";
 
     cin.ignore();
     getline(cin, cadena);
 
     N->setName(cadena);
-    system("cls");
 
-    cout << "\nAGREGAR NUEVO AGENTE\n\n";
+    system("cls");
+    cout << endl <<"AGREGAR NUEVO AGENTE" << endl << endl;
     cout << "Apellidos: ";
 
     getline(cin, cadena);
-    N->setLastName(cadena);
 
+    N->setLastName(cadena);
     nag->setName(*N);
 
+    // Especialidad del Agente
     do
     {
-        // Especialidad del Agente
         system("cls");
-        cout << "\n\tAGREGAR NUEVO AGENTE\n\n";
-        cout << "\tEspecialidad: ";
-        cout << "\n\t1) Servidores.";
-        cout << "\n\t2) De Escritorio.";
-        cout << "\n\t3) Portatiles.";
-        cout << "\n\t4) Linux.";
-        cout << "\n\t5) Impresoras.";
-        cout << "\n\t6) Redes.\n: ";
+        cout << endl << "\tAGREGAR NUEVO AGENTE" << endl;
+        cout << endl << "\tEspecialidad. ";
+        cout << endl << "\t1) Servidores.";
+        cout << endl << "\t2) De Escritorio.";
+        cout << endl << "\t3) Portatiles.";
+        cout << endl << "\t4) Linux.";
+        cout << endl << "\t5) Impresoras.";
+        cout << endl << "\t6) Redes."<< endl <<": ";
         cin >> o;
+
         switch (o)
         {
         case 1:
@@ -128,39 +129,42 @@ void SecretaryMenu::addAgent(AgentList* aList)
             cadena = "Redes";
             break;
         default:
-        {
             system("cls");
             cout << "Escoja una opcion del menu...";
             pause();
-        }
+            break;
         }
     } while (o > 6 || o < 1);
 
     nag->setSpeciality(cadena);
 
-    // N�mero de Extensi�n del Agente
+    // Numero de Extension del Agente
     system("cls");
-    cout << "\nAGREGAR NUEVO AGENTE\n\n";
-    cout << "Numero de Extension [4 digitos]\n: ";
+    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+    cout << "Numero de Extension [4 digitos]" << endl <<": ";
+
     cin.ignore();
     cin >> o;
+
     cadena = to_string(o);
     nag->setExtensionNumber(cadena);
 
     // Numero de empleado del Agente
     system("cls");
-    cout << "\nAGREGAR NUEVO AGENTE\n\n";
-    cout << "Numero de empleado [9 digitos]\n: ";
+    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+    cout << "Numero de empleado [9 digitos] " << endl << ": ";
+
     cin >> o;
+
     cadena = to_string(o);
     nag->setEmployeeNumber(cadena);
 
+    // Hora de entrada
     do
     {
-        // Hora de entrada
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Hora de entrada [HH:]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Hora de entrada [HH:] " << endl << ": ";
         cin >> o;
     } while (o > 24 || o < 0);
     T->setHour(o);
@@ -168,8 +172,8 @@ void SecretaryMenu::addAgent(AgentList* aList)
     do
     {
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Minuto de entrada [:MM:]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Minuto de entrada [:MM:] " << endl << ": ";
         cin >> o;
     } while (o > 59 || o < 0);
     T->setMinute(o);
@@ -177,20 +181,19 @@ void SecretaryMenu::addAgent(AgentList* aList)
     do
     {
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Segundo de entrada [:SS]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Segundo de entrada [:SS] " << endl << ": ";
         cin >> o;
     } while (o > 59 || o < 0);
     T->setSecond(o);
-
     nag->setStartTime(*T);
 
+    // Hora de salida
     do
     {
-        // Hora de salida
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Hora de Salida [HH:]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Hora de Salida [HH:] " << endl << ": ";
         cin >> o;
     } while (o > 24 || o < 0);
     T->setHour(o);
@@ -198,8 +201,9 @@ void SecretaryMenu::addAgent(AgentList* aList)
     do
     {
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Minuto de Salida [:MM:]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Minuto de Salida [:MM:] " << endl << ": ";
+
         cin >> o;
     } while (o > 59 || o < 0);
     T->setMinute(o);
@@ -207,51 +211,42 @@ void SecretaryMenu::addAgent(AgentList* aList)
     do
     {
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Segundo de Salida [:SS]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Segundo de Salida [:SS] " << endl << ": ";
         cin >> o;
     } while (o > 59 || o < 0);
     T->setSecond(o);
-
     nag->setEndTime(*T);
 
+    // Horas Extra
     do
     {
-        // Horas Extra
         system("cls");
-        cout << "\nAGREGAR NUEVO AGENTE\n\n";
-        cout << "Horas extras [0-4]\n: ";
+        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Horas extras [0-4] " << endl << ": ";
         cin >> o;
 
         if (o > 4)
         {
-            cout << "Por favor proporcione un n�mero de horas menor a 4.\nLos trabajadores no pueden trabajar m�s de 4 horas";
+            cout << endl << "Por favor proporcione un n�mero de horas menor a 4." << endl << "Los trabajadores no pueden trabajar mas de 4 horas" << endl << endl;
         }
         else if (o < 0)
         {
-            cout << "Por favor proporcione un numero de horas mayor o igual a 0.";
+            cout << endl << "Por favor proporcione un numero de horas mayor o igual a 0." << endl << endl;
         }
     } while (o > 4 || o < 0);
+
     cadena = to_string(o);
-
     nag->setExtraHours(cadena);
-
-    // Almacenar el agente en un nodo
     ndn->setData(*nag);
-
-    // Insertar Nodo en aList
     aList->insertAgent(*ndn);
 
     system("cls");
-    cout << "\nAGREGAR NUEVO AGENTE\n\n";
-    cout << "Agente agregado Exitosamente";
+    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+    cout << "Agente agregado Exitosamente" << endl << endl;
 
-    cout << "\n\n" << nag->toString(false);
-    /*
-    Datos almacenados correctamente ?
-    en caso de que si, sale del método.
-    En caso de que no, llama a modificar agente con este agente creado.
-    */
+    cout << "Datos del Nuevo agente" << endl << endl << nag->toString(false);
+
     pause();
 }
 
@@ -263,14 +258,16 @@ void SecretaryMenu::delAgent(AgentList* aList)
     int x;
 
     system("cls");
-    cout << "Menu Eliminar Agente" << endl
-        << endl;
+    cout << "Menu Eliminar Agente" << endl << endl;
     cout << "1) Eliminar un Agente" << endl;
     cout << "2) Eliminar todos los Agentes" << endl;
+
     cin >> x;
+
     if (x == 1)
     {
         cout << "Numero de Empelado: ";
+
         cin >> myString;
         do
         {
@@ -279,6 +276,7 @@ void SecretaryMenu::delAgent(AgentList* aList)
                 cout << "Agente encontrado" << endl;
                 cout << aux->getData().toString(true);
                 cout << "Desea eliminar este Agente? (S/N): ";
+
                 cin >> c;
 
                 c = toupper(c);
@@ -286,19 +284,24 @@ void SecretaryMenu::delAgent(AgentList* aList)
                 if (c == 'S')
                 {
                     aList->deleteNode(aux);
+
                     cout << "Agente eliminado satisfactoriamente" << endl;
                 }
                 cout << "Retornando al menu principal" << endl;
+
                 pause();
+
                 return;
             }
             else
             {
                 aux = aux->getNext();
+
                 if (aux == nullptr)
                 {
                     cout << "El Agente no ha sido encontrado" << endl;
                     cout << "Regresando al menu principal" << endl;
+
                     pause();
                 }
             }
@@ -320,6 +323,7 @@ void SecretaryMenu::showAgentList(AgentList* aList)
         system("cls");
         cout << "Menu Mostrar lista de agentes" << endl << endl;
         cout << "Mostrar Lista de llamadas?[S/N]\n: ";
+
         cin >> op;
 
         op = toupper(op);
@@ -327,6 +331,7 @@ void SecretaryMenu::showAgentList(AgentList* aList)
         if (op != 'S' && op != 'N') {
             system("cls");
             cout << "Selecciona una opcion del menu";
+
             pause();
         }
     } while (op != 'S' && op != 'N');
@@ -342,17 +347,38 @@ void SecretaryMenu::showAgentList(AgentList* aList)
     {
         cout << "Lista Vacia" << endl;
         cout << "Retornando al menu principal" << endl;
+
         pause();
+
         return;
     }
 
     cout << aList->toString(myBool);
+
     pause();
 }
 
 void SecretaryMenu::sornAgentList(AgentList* aList)
 {
+    int myInt;
 
+        do {
+            system("cls");
+            cout << "ORDENAR LISTA DE AGENTES" << endl;
+            cout << endl << "1) Ordenar por Nombre.";
+            cout << endl << "2) Ordenar por Especialidad." << endl << ": ";
+
+            cin >> myInt;
+        } while (myInt < 3 && myInt > 0);
+
+    // Ordenar por Nombre
+    if (myInt == 1) {
+        
+    }
+    else {
+        // Ordenar por especialidad
+
+    }
 }
 
 void SecretaryMenu::findAgent(AgentList* aList)
@@ -362,10 +388,11 @@ void SecretaryMenu::findAgent(AgentList* aList)
     int x;
 
     system("cls");
-    cout << "Menu Buscar Agente" << endl
-        << endl;
+    cout << "Menu Buscar Agente" << endl << endl;
     cout << "Numero de Empelado: ";
+
     cin >> x;
+
     myString = to_string(x);
 
     do
@@ -374,15 +401,18 @@ void SecretaryMenu::findAgent(AgentList* aList)
         {
             cout << "Agente encontrado" << endl;
             cout << aux->getData().toString(true);
+
             pause();
         }
         else
         {
             aux = aux->getNext();
+
             if (aux == nullptr)
             {
                 cout << "El Agente no ha sido encontrado" << endl;
                 cout << "Regresando al menu principal" << endl;
+
                 pause();
             }
         }
@@ -398,10 +428,11 @@ void SecretaryMenu::modAgent(AgentList* aList)
     int x;
 
     system("cls");
-    cout << "Menu Modificar Agente" << endl
-        << endl;
-    cout << "N� de Empelado: ";
+    cout << "Menu Modificar Agente" << endl << endl;
+    cout << "Numero de Empelado: ";
+
     cin >> x;
+
     myString = to_string(x);
 
     do
@@ -409,19 +440,19 @@ void SecretaryMenu::modAgent(AgentList* aList)
         if (aux->getData().getEmployeeNumber() == myString)
         {
             system("cls");
-            cout << "Menu Modificar Agente" << endl << endl;
-            cout << "Agente encontrado" << endl;
-            cout << "Datos del Agente" << endl << aux->getData().toString(true) << endl << endl;
+            cout << "MENU MODIFICAR AGENTE" << endl;
+            cout << endl << "Agente encontrado";
+            cout << endl << "Datos del Agente" << endl << aux->getData().toString(true) << endl;
 
-            cout << "Escoja el dato a modificar: ";
-            cout << "1) N�Extension" << endl;
-            cout << "2) Especialidad" << endl;
-            cout << "3) N�Empleado" << endl;
-            cout << "4) Horas Extra" << endl;
-            cout << "5) Nombre" << endl;
-            cout << "6) Hora de Entrada" << endl;
-            cout << "7) Hora de salida" << endl;
-            cout << ": ";
+            cout << endl << "Escoja el dato a modificar: ";
+            cout << endl << "1) Numero de Extension";
+            cout << endl << "2) Especialidad";
+            cout << endl << "3) Numero de Empleado";
+            cout << endl << "4) Horas Extra";
+            cout << endl << "5) Nombre";
+            cout << endl << "6) Hora de Entrada";
+            cout << endl << "7) Hora de salida";
+            cout << endl << ": ";
             cin >> x;
 
             system("cls");
@@ -432,25 +463,27 @@ void SecretaryMenu::modAgent(AgentList* aList)
             {
             case 1:
             {
-                cout << "\nN�Extension [4 digitos]: ";
-                cin.ignore();
-                cin >> x;
-                myString = to_string(x);
-                aux->getData().setExtensionNumber(myString);
                 cout << "Numero de Extension [4 digitos]\n: ";
 
-            }
+                cin.ignore();
+                cin >> x;
+
+                myString = to_string(x);
+                aux->getData().setExtensionNumber(myString);            }
             break;
             case 2:
             {
-                cout << "\tEspecialidad: ";
-                cout << "\n\t1) Servidores.";
-                cout << "\n\t2) De Escritorio.";
-                cout << "\n\t3) Portatiles.";
-                cout << "\n\t4) Linux.";
-                cout << "\n\t5) Impresoras.";
-                cout << "\n\t6) Redes.\n: ";
+                cout << endl << "\tEspecialidad: ";
+                cout << endl << "\t1) Servidores.";
+                cout << endl << "\t2) De Escritorio.";
+                cout << endl << "\t3) Portatiles.";
+                cout << endl << "\t4) Linux.";
+                cout << endl << "\t5) Impresoras.";
+                cout << endl << "\t6) Redes.";
+                cout << ": ";
+
                 cin >> x;
+
                 switch (x)
                 {
                 case 1:
@@ -472,44 +505,50 @@ void SecretaryMenu::modAgent(AgentList* aList)
                     myString = "Redes";
                     break;
                 default:
-                {
                     system("cls");
                     cout << "Escoja una opcion del menu...";
+
                     pause();
-                }
+                    break;
                 }
                 while (x > 6 || x < 1);
+
                 aux->getData().setSpeciality(myString);
             }
             break;
             case 3:
             {
-                cout << "\nN�Empleado: ";
+                cout << endl << "Numero de Empleado: ";
+
                 cin >> x;
+
                 myString = to_string(x);
                 aux->getData().setEmployeeNumber(myString);
             }
             break;
             case 4:
             {
-                cout << "\nHoras Extra: ";
+                cout << endl << "Horas Extra: ";
+
                 cin >> x;
+
                 myString = to_string(x);
                 aux->getData().setExtraHours(myString);
             }
             break;
             case 5:
             {
-                cout << "\nNombre(s): ";
+                cout << endl << "Nombre(s): ";
+
                 cin.ignore();
                 getline(cin, myString);
                 n.setName(myString);
 
-                cout << "\nApellidos: ";
+                cout << endl << "Apellidos: ";
+
                 cin.ignore();
                 getline(cin, myString);
                 n.setLastName(myString);
-
                 aux->getData().setName(n);
             }
             break;
@@ -517,25 +556,27 @@ void SecretaryMenu::modAgent(AgentList* aList)
             {
                 do
                 {
-                    cout << "\nHora: ";
+                    cout << endl << "Hora: ";
+
                     cin >> x;
                 } while (x > 24 || x < 0);
                 t.setHour(x);
 
                 do
                 {
-                    cout << "\nMinuto: ";
+                    cout << endl << "Minuto: ";
+
                     cin >> x;
                 } while (x > 59 || x < 0);
                 t.setMinute(x);
 
                 do
                 {
-                    cout << "\nSegundo: ";
+                    cout << endl << "Segundo: ";
+
                     cin >> x;
                 } while (x > 59 || x < 0);
                 t.setSecond(x);
-
                 aux->getData().setStartTime(t);
             }
             break;
@@ -543,34 +584,36 @@ void SecretaryMenu::modAgent(AgentList* aList)
             {
                 do
                 {
-                    cout << "\nHora: ";
+                    cout << endl << "Hora: ";
+
                     cin >> x;
                 } while (x > 24 || x < 0);
                 t.setHour(x);
 
                 do
                 {
-                    cout << "\nMinuto: ";
+                    cout << endl << "Minuto: ";
+
                     cin >> x;
                 } while (x > 59 || x < 0);
                 t.setMinute(x);
 
                 do
                 {
-                    cout << "\nSegundo: ";
+                    cout << endl << "\Segundo: ";
+
                     cin >> x;
                 } while (x > 59 || x < 0);
                 t.setSecond(x);
-
                 aux->getData().setEndTime(t);
             }
             break;
             default:
                 break;
             }
-            cout << "\n\nDato modificado correctamente" << endl
-                << endl;
+            cout << endl << endl << "Dato modificado correctamente" << endl << endl;
             cout << aux->getData().toString(true);
+
             pause();
         }
         else
@@ -580,6 +623,7 @@ void SecretaryMenu::modAgent(AgentList* aList)
             {
                 cout << "\nEl Agente no ha sido encontrado" << endl;
                 cout << "\nRegresando al menu principal" << endl;
+
                 pause();
             }
         }
@@ -590,101 +634,110 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
 {
     SimplyNode* node = new SimplyNode();
     DoubleNode* aux = aList->getFirstPos();
-    // Agent *modAgent = new Agent();
-
     Client* call = new Client();
-    Time t = Time();
+    Time* t = new Time();
     string cadena;
     int x;
 
     // Busqueda de cliente por n�mero de empleado
-    system("cls");
-    cout << "A�ADIR CLIENTE A UN AGENTE";
-    cout << "\nNumero de empleado a quien se le a�adira la llamada [9 digitos]\n: ";
-    cin >> cadena;
-
-    // Hora de atenci�n
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nHora de atencion [HH:]\n: ";
-        cin >> x;
-    } while (x > 24 || x < 0);
-    t.setHour(x);
-
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nMinuto de atencion [:MM:]\n: ";
-        cin >> x;
-    } while (x > 59 || x < 0);
-    t.setMinute(x);
-
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nSegundo de atencion [:SS]\n: ";
-        cin >> x;
-    } while (x > 59 || x < 0);
-    t.setSecond(x);
-
-    call->setTimeAtention(t);
-
-    // Duraci�n de la llamada
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nHora de la Duracion de la llamada [HH:]\n: ";
-        cin >> x;
-
-    } while (x > 24 || x < 0);
-    t.setHour(x);
-
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nMinuto de la duracion de la llamada [:MM:]\n: ";
-        cin >> x;
-
-    } while (x > 59 || x < 0);
-    t.setMinute(x);
-
-    do
-    {
-        system("cls");
-        cout << "A�ADIR CLIENTE A UN AGENTE";
-        cout << "\nSegundo de la duracion de la llamada [:SS]\n: ";
-        cin >> x;
-    } while (x > 59 || x < 0);
-    t.setSecond(x);
-
-    call->setAtentionDuration(t);
-    node->setData(*call);
-
     do
     {
         if (aux->getData().getEmployeeNumber() == cadena)
         {
+            system("cls");
+            cout << "AGREGAR CLIENTE A UN AGENTE";
+            cout << endl << "Numero de empleado a quien se le agregara la llamada [9 digitos]" << endl << ": ";
+
+            cin >> cadena;
+
+            // Hora de atencion
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Hora de atencion [HH:] " << endl << ": ";
+
+                cin >> x;
+            } while (x > 24 || x < 0);
+            t->setHour(x);
+
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Minuto de atencion [:MM:] " << endl << ": ";
+
+                cin >> x;
+            } while (x > 59 || x < 0);
+            t->setMinute(x);
+
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Segundo de atencion [:SS]" << endl << ": ";
+
+                cin >> x;
+            } while (x > 59 || x < 0);
+            t->setSecond(x);
+            call->setTimeAtention(*t);
+
+            // Duracion de la llamada
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Hora de la Duracion de la llamada [HH:]" << endl << ": ";
+
+                cin >> x;
+
+            } while (x > 24 || x < 0);
+            t->setHour(x);
+
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Minuto de la duracion de la llamada [:MM:] " << endl << ": ";
+
+                cin >> x;
+
+            } while (x > 59 || x < 0);
+            t->setMinute(x);
+
+            do
+            {
+                system("cls");
+                cout << "AGREGAR CLIENTE A UN AGENTE";
+                cout << endl << "Segundo de la duracion de la llamada [:SS]" << endl << ": ";
+
+                cin >> x;
+            } while (x > 59 || x < 0);
+            t->setSecond(x);
+
+            call->setAtentionDuration(*t);
+            node->setData(*call);
             aux->getData().getClientList().insertOrdered(*node);
         }
         else
         {
             aux = aux->getNext();
+
+            if (aux == nullptr) {
+                system("cls");
+                cout << "Agente no encontrado" << endl;
+                cout << cadena << " no fue localizado." << endl << endl;
+
+                pause();
+            }
         }
     } while (aux != nullptr);
-
-    // FIN DE Busqueda de cliente por n�mero de empleado
 }
 
 void SecretaryMenu::deleteClientToAgent(AgentList* aList)
 {
     int x;
-    SimplyNode* s;
+    SimplyNode* s = nullptr;
     DoubleNode* a = aList->getFirstPos();
 
     system("cls");
