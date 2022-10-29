@@ -44,7 +44,7 @@ string AgentList::toString(bool myBool) // E7
     do {
         i++;
 
-        result += "\n(" + to_string(i) + ") " + aux->getData().toString(myBool);
+        result += "\n(" + to_string(i) + ")\n" + aux->getData().toString(myBool);
         aux = aux->getNext();
     } while (aux != nullptr);
     return result;

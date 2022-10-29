@@ -266,6 +266,8 @@ void SecretaryMenu::delAgent(AgentList* aList)
 
     if (x == 1)
     {
+        system("cls");
+        cout << "Menu Eliminar Agente" << endl << endl;
         cout << "Numero de Empelado: ";
 
         cin >> myString;
@@ -273,9 +275,13 @@ void SecretaryMenu::delAgent(AgentList* aList)
         {
             if (aux->getData().getEmployeeNumber() == myString)
             {
+                system("cls");
+                cout << "Menu Eliminar Agente" << endl << endl;
                 cout << "Agente encontrado" << endl;
-                cout << aux->getData().toString(true);
-                cout << "Desea eliminar este Agente? (S/N): ";
+
+                cout << aux->getData().toString(false);
+
+                cout << endl << "Desea eliminar este Agente? (S/N): ";
 
                 cin >> c;
 
@@ -285,8 +291,12 @@ void SecretaryMenu::delAgent(AgentList* aList)
                 {
                     aList->deleteNode(aux);
 
+                    system("cls");
+                    cout << "Menu Eliminar Agente" << endl << endl;
                     cout << "Agente eliminado satisfactoriamente" << endl;
                 }
+                system("cls");
+                cout << "Menu Eliminar Agente" << endl << endl;
                 cout << "Retornando al menu principal" << endl;
 
                 pause();
@@ -639,14 +649,14 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
     string cadena;
     int x;
 
-    // Busqueda de cliente por n�mero de empleado
+    // Busqueda de cliente por numero de empleado
     do
     {
         if (aux->getData().getEmployeeNumber() == cadena)
         {
             system("cls");
             cout << "AGREGAR CLIENTE A UN AGENTE";
-            cout << endl << "Numero de empleado a quien se le agregara la llamada [9 digitos]" << endl << ": ";
+            cout << endl << "Numero de empleado [9 digitos]" << endl << ": ";
 
             cin >> cadena;
 
@@ -737,8 +747,9 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
 void SecretaryMenu::deleteClientToAgent(AgentList* aList)
 {
     int x;
+    string myString;
     SimplyNode* s = nullptr;
-    DoubleNode* a = aList->getFirstPos();
+    DoubleNode* aux = aList->getFirstPos();
 
     system("cls");
     cout << "ELIMINAR LLAMADA\n";
@@ -750,29 +761,45 @@ void SecretaryMenu::deleteClientToAgent(AgentList* aList)
     {
         system("cls");
         cout << "ELIMINAR LLAMADA\n";
-        cout << "\nSelecciona un Agente.\n\n";
-        aList->toString(false);
-        cout << "\n: ";
+        cout << "Numero de Empelado [9 digitos]: ";
+
         cin >> x;
 
-        for (int i = 0; i < x; i++)
+        myString = to_string(x);
+
+        do
         {
-            a = a->getNext();
-        }
+            if (aux->getData().getEmployeeNumber() == myString)
+            {
+                system("cls");
+                cout << "ELIMINAR LLAMADA\n";
+                cout << "\nSelecciona una Llamada.\n\n";
 
-        system("cls");
-        cout << "ELIMINAR LLAMADA\n";
-        cout << "\nSelecciona una Llamada.\n\n";
-        s = a->getData().getClientList().getFirstPos();
-        cout << "\n: ";
-        cin >> x;
+                s = aux->getData().getClientList().getFirstPos();
 
-        for (int i = 0; i < x; i++)
-        {
-            s = s->getNext();
-        }
+                cout << "\n: ";
+                cin >> x;
 
-        delete s;
+                for (int i = 0; i < x; i++)
+                {
+                    s = s->getNext();
+                }
+
+                delete s;
+            }
+            else
+            {
+                aux = aux->getNext();
+
+                if (aux == nullptr)
+                {
+                    cout << "El Agente no ha sido encontrado" << endl;
+                    cout << "Regresando al menu principal" << endl;
+
+                    pause();
+                }
+            }
+        } while (aux != nullptr);
     }
     else
     {
@@ -785,9 +812,9 @@ void SecretaryMenu::deleteClientToAgent(AgentList* aList)
 
         for (int i = 0; i < x; i++)
         {
-            a = a->getNext();
+            aux = aux->getNext();
         }
-        a->getData().getClientList().deleteAll();
+        aux->getData().getClientList().deleteAll();
     }
 }
 
@@ -873,6 +900,5 @@ void SecretaryMenu::loadLists(AgentList* aList)
 void SecretaryMenu::pause()
 {
     cout << "\nEnter para continuar...";
-    cin.ignore();
     cin.ignore();
 }
