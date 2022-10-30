@@ -72,7 +72,7 @@ public:
 
     //Operadores de flujo
     friend std::ostream& operator << (std::ostream&, const Agent&);
-    friend std::ostream& operator >> (std::ostream&, Agent&);
+    friend std::istream& operator >> (std::istream&, Agent&);
 };
 
 #endif // __AGENT_HPP__

@@ -21,9 +21,9 @@ public:
     //Getters
     Client getData() const;
     SimplyNode* getNext();
-    SimplyNode* getPreviousPos(const SimplyNode&);
+    //SimplyNode* getPreviousPos(const SimplyNode&);
 
-    bool nextIsNullptr(const SimplyNode& c);
+    //bool nextIsNullptr(const SimplyNode& c);
 
     //Setters
     void setData(const Client&);

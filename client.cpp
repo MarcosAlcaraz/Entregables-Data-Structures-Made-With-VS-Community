@@ -1,46 +1,43 @@
-﻿//Librerias de compilador
-#include<iostream>
-//Librerias de Usuarioa
+﻿#include<iostream>
+
 #include"client.hpp"
 
 using namespace std;
 
-//Constructor Normal
-Client::Client() {}  // E4
+// TESTEAR
+Client::Client() {}  
 
-//Constructor Copia
-Client::Client(const Client& c) {}  // E4
+// TESTEAR
+Client::Client(const Client& c) : timeAtention(c.timeAtention), atentionDuration(c.atentionDuration) {}  // E4
 
-//Getters
-//Get de Hora de Atenci�n
+// TESTEAR
 Time Client::getTimeAtention() const { // E4
     return timeAtention;
 }
 
-//Get de Duraci�n de Llamada
+// TESTEAR
 Time Client::getAtentionDuration() const { // E4
     return atentionDuration;
 }
 
-//Setters
-//Set de Peimer Nombre
+// TESTEAR
 void Client::setTimeAtention(const Time& ta) { // E4
     timeAtention = ta;
 }
 
-//Set de Minuto
+// TESTEAR
 void Client::setAtentionDuration(const Time& ad) { // E4
     atentionDuration = ad;
 }
 
-//Impresi�n de Tiempo
+// TESTEAR
 string Client::toString() const {  // E4
-    string cadena;
-    cadena += "\nHora de llamada: " + getTimeAtention().toString() + "\nDuracion de la llamada: " + getAtentionDuration().toString();
-    return cadena;
+    string result;
+    result += "\nHora de llamada: " + getTimeAtention().toString() + "\nDuracion de la llamada: " + getAtentionDuration().toString();
+    return result;
 }
 
-//Operador Asignaci�n
+// TESTEAR
 Client& Client::operator = (const Client& c) {
     timeAtention = c.timeAtention;
     atentionDuration = c.atentionDuration;
@@ -48,32 +45,32 @@ Client& Client::operator = (const Client& c) {
     return *this;
 }
 
-//Operador Igualdad
+// TESTEAR
 bool Client::operator == (const Client& t) const {
     return toString() == t.toString();
 }
 
-//Operador Es Diferente
+// TESTEAR
 bool Client::operator != (const Client& t) const {
     return toString() != t.toString();
 }
 
-//Operador Menor Que
+// TESTEAR
 bool Client::operator < (const Client& t) const {
     return toString() < t.toString();
 }
 
-//Operador Menor o Igual
+// TESTEAR
 bool Client::operator <= (const Client& t) const {
     return *this < t || *this == t;
 }
 
-//Operador Mayor Que
+// TESTEAR
 bool Client::operator > (const Client& t) const {
     return !(*this <= t);
 }
 
-//Operador Mayor o Igual
+// TESTEAR
 bool Client::operator >= (const Client& t) const {
     return !(*this < t);
 }

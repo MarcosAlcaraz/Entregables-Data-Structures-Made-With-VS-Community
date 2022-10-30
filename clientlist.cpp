@@ -1,24 +1,24 @@
-﻿// Librerias de compilador
-#include <iostream>
+﻿#include <iostream>
+#include <fstream>
 
-// Librerias de Usuario
 #include "clientlist.hpp"
 #include "doublenode.hpp"
 
 using namespace std;
 
-// Constructor Normalito
+// EXITO
 ClientList::ClientList() : anchor(nullptr) {}
 
-// Constructor Copia
+// EXITO
 ClientList::ClientList(const ClientList&) : anchor(nullptr) {}
 
+// EXITO
 ClientList::~ClientList()  //E5
 {
     deleteAll();
-    anchor = nullptr;
 }
 
+// TESTEAR (Sin Uso)
 string ClientList::findData(const Client&) const  //E5
 {
     string myString;
@@ -52,6 +52,7 @@ string ClientList::findData(const Client&) const  //E5
     return myString;
 }
 
+// TESTEAR (Sin Uso)
 Client ClientList::retrieve(SimplyNode& p)
 {
     if (!(isValidPos(p)))
@@ -62,105 +63,113 @@ Client ClientList::retrieve(SimplyNode& p)
     return p.getData();
 }
 
+// TESTEAR (Esperanzador)
 string ClientList::toString() // E6
 {
-    SimplyNode* node = anchor;
-    string cadena;
+    SimplyNode* aux = anchor;
+    string result;
     int i = 0;
     do {
         i++;
-        cadena += "\n\t(Llamada " + to_string(i) + ")\n" + node->getData().toString();
-        node = node->getNext();
-    } while (node != nullptr);
-    return cadena;
+        result += "\n\t(Llamada " + to_string(i) + ")\n" + aux->getData().toString();
+        aux = aux->getNext();
+    } while (aux != nullptr);
+    return result;
 }
 
+// TESTEAR (Reconstruido)
 SimplyNode* ClientList::getPrevPos(const SimplyNode& p)
 {
     SimplyNode* aux = anchor;
-    do
-    {
-        if (aux->getNext()->getData().getTimeAtention() == p.getData().getTimeAtention())
-        {
-            return aux;
-        }
+    while (aux->getNext()->getData().getTimeAtention() != p.getData().getTimeAtention()) {
         aux = aux->getNext();
-    } while (aux->getNext()->getData().getTimeAtention() != p.getData().getTimeAtention());
-    return nullptr;
+    }
+    return aux;
 }
 
+// EXITO
 SimplyNode* ClientList::getFirstPos() const {
     return anchor;
 }
 
+// TESTEAR (Reconstruido)
 SimplyNode* ClientList::getLastPos() const
 {
+    if(anchor == nullptr) {
+        return nullptr;
+    }
+
     SimplyNode* aux = anchor;
 
-    do {
+    while (aux->getNext() != nullptr) {
         aux = aux->getNext();
-    } while (aux->getNext() != nullptr);
-
+    }
     return aux;
 }
 
+// EXITO (Sin Uso)
 SimplyNode* ClientList::getNextPos(SimplyNode& d) const
 {
     return d.getNext();
 }
 
-void ClientList::deleteClient() // E5 E6
+// TESTEAR (Reconstruido)
+void ClientList::deleteClient(SimplyNode* del) // E5 E6
 {
-    SimplyNode* del = anchor;
-    int opcion = NULL;
-
-    cout << "\nSelecciona el Cliente/Llamada a eliminar.\n";
-    toString();
-    cout << "Respuesta : ";
-    cin >> opcion;
-
-    for (int i = 0; i < opcion; i++)
-    {
-        del = del->getNext();
-    }
+    getPrevPos(*del)->setNext(del->getNext());
     delete del;
 }
 
-void ClientList::insertOrdered(SimplyNode& call) // E6
+// TESTEAR (Reconstruido)
+void ClientList::insertOrdered(SimplyNode& call)
 {
+    SimplyNode* i = anchor;
+    Client aux = Client();
+    int myInt = 0;
+    bool flag = false;
+
+    call.setNext(anchor);
     if (anchor == nullptr)
     {
         anchor = &call;
     }
     else
     {
+        SimplyNode* j = anchor->getNext();
         // Insertando al inicio
         call.setNext(anchor);
         anchor = &call;
 
-        SimplyNode* aux = anchor;
-        SimplyNode* temp = anchor->getNext();
-        SimplyNode* last = &*anchor;
+        // Calculando tamaño de la lista
+        do {
+            myInt++;
+            i = i->getNext();
+        } while (i != nullptr);
+        i = anchor;
 
         // Ejecutando ordenamiento [BoobleSort]
-        do
-        {
-            if (aux->getData().getTimeAtention() > aux->getNext()->getData().getTimeAtention())
-            {
-                temp = aux->getNext();
-                aux->setNext(aux->getNext()->getNext());
-                temp->setNext(aux);
-                last->setNext(temp);
+
+        do {
+            i = anchor;
+            j = anchor->getNext();
+            flag = false;
+
+            for (int k = 0; k < myInt; k++) {
+                if (i > j) {
+                    // Swap
+                    aux = i->getData();
+                    i->setData(j->getData());
+                    j->setData(aux);
+                    flag = true;
+                }
+                j = j->getNext();
+                i = i->getNext();
             }
-            else
-            {
-                last = aux;
-                aux = aux->getNext();
-            }
-        } while (aux != nullptr);
+        } while (flag);
     }
 }
 
+// EXITO
 bool ClientList::isValidPos(SimplyNode& p)
 {
     if (&p == nullptr)
@@ -172,6 +181,7 @@ bool ClientList::isValidPos(SimplyNode& p)
     }
 }
 
+// EXITO
 void ClientList::deleteAll()
 {
     SimplyNode* aux = nullptr;
@@ -184,6 +194,7 @@ void ClientList::deleteAll()
     }
 }
 
+// EXITO
 bool ClientList::isEmpty()
 {
     return anchor == nullptr;

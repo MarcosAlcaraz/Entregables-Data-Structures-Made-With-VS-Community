@@ -1,49 +1,47 @@
-﻿//Librerias de compilador
-#include<iostream>
+﻿#include<iostream>
 #include<string>
-//Librerias de Usuario
+
 #include "name.hpp"
 
 using namespace std;
 
-//Constructor Normal
+// EXITO
 Name::Name() {}
 
-//Constructor Menos Normal
+// EXITO
 Name::Name(const Name& n) : name(n.name), lastName(n.lastName) {}
 
+// EXITO
 Name::~Name() {}
 
-//Getters
-//Get de Nombre
+// EXITO
 string Name::getName() const {
     return name;
 }
 
-//Get de Apellidos
+// EXITO
 string Name::getLastName() const {
     return lastName;
 }
 
-//Setters
-//Set de Nombre(s)
+// EXITO
 void Name::setName(const string& n) {
     name = n;
 }
 
-//Set de Apellidos
+// EXITO
 void Name::setLastName(const string& ln) {
     lastName = ln;
 }
 
-//Impresi�n de Nombre
+// EXITO
 string Name::toString() const {
     string cadena;
     cadena += getLastName() + " " + getName();
     return cadena;
 }
 
-//Operador Asignaci�n
+// EXITO
 Name& Name::operator = (const Name& n) {
     name = n.name;
     lastName = n.lastName;
@@ -51,32 +49,32 @@ Name& Name::operator = (const Name& n) {
     return *this;
 }
 
-//Operador Igualdad
+// TESTEAR
 bool Name::operator == (const Name& t) const {
     return toString() == t.toString();
 }
 
-//Operador Es Diferente
+// TESTEAR
 bool Name::operator != (const Name& t) const {
     return toString() != t.toString();
 }
 
-//Operador Menor Que
+// TESTEAR
 bool Name::operator < (const Name& t) const {
     return toString() < t.toString();
 }
 
-//Operador Menor o Igual
+// TESTEAR
 bool Name::operator <= (const Name& t) const {
     return *this < t || *this == t;
 }
 
-//Operador Mayor Que
+// TESTEAR
 bool Name::operator > (const Name& t) const {
     return !(*this <= t);
 }
 
-//Operador Mayor o Igual
+// TESTEAR
 bool Name::operator >= (const Name& t) const {
     return !(*this < t);
 }

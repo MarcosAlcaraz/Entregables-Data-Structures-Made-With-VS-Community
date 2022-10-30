@@ -17,11 +17,11 @@ public:
 
     Agent getData() const;
     DoubleNode* getNext();
-    DoubleNode* getprev();
+    DoubleNode* getPrev();
 
     void setData(const Agent&);
     void setNext(DoubleNode*);
-    void setprev(DoubleNode*);
+    void setPrev(DoubleNode*);
 
     //Operadores relacionales
     DoubleNode& operator = (const DoubleNode&);

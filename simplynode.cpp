@@ -1,45 +1,54 @@
-//Librerias de compilador
 #include<iostream>
-//Librerias de Usuario
+
 #include "simplynode.hpp"
 
 using namespace std;
 
-//Constructor Normal
+// TESTEAR
 SimplyNode::SimplyNode() : next(nullptr) {}
 
-//Constructor Menos Normal
+// TESTEAR
 SimplyNode::SimplyNode(const Client& sn) : next(nullptr), data(sn) {}
 
+// TESTEAR
 SimplyNode::~SimplyNode() { }
 
-//Getters
-//Get de Datos de Cliente
+// TESTEAR
 Client SimplyNode::getData() const {
     return data;
 }
 
-//Get de Siguiente Nodo
+// TESTEAR
 SimplyNode* SimplyNode::getNext() {
     return next;
 }
-
+/*
+// PENDIENTE
+SimplyNode* SimplyNode::getPreviousPos(const SimplyNode&)
+{
+    return nullptr;
+}
+*/
+/*
+// TESTEAR
 bool SimplyNode::nextIsNullptr(const SimplyNode& c)
 {
     return c.next == nullptr;
 }
-
-//Setters
-//Set de Datos de Cliente
+*/
+// TESTEAR
 void SimplyNode::setData(const Client& c) {
     data = c;
 }
 
-//Set Siguiente Nodo
+// TESTEAR
 void SimplyNode::setNext(SimplyNode* p) {
-    next = p;
+    if (p != nullptr) {
+        next = p;
+    }
 }
 
+// TESTEAR
 SimplyNode& SimplyNode::operator=(const SimplyNode& c)
 {
     data = c.data;
@@ -48,31 +57,37 @@ SimplyNode& SimplyNode::operator=(const SimplyNode& c)
     return *this;
 }
 
+// TESTEAR
 bool SimplyNode::operator == (const SimplyNode& t) const
 {
     return data.toString() == t.data.toString();
 }
 
+// TESTEAR
 bool SimplyNode::operator != (const SimplyNode& t) const
 {
     return data.toString() != t.data.toString();
 }
 
+// TESTEAR
 bool SimplyNode::operator < (const SimplyNode& t) const
 {
     return data.toString() < t.data.toString();
 }
 
+// TESTEAR
 bool SimplyNode::operator <= (const SimplyNode& t) const
 {
     return *this < t || *this == t;
 }
 
+// TESTEAR
 bool SimplyNode::operator > (const SimplyNode& t) const
 {
     return !(*this <= t);
 }
 
+// TESTEAR
 bool SimplyNode::operator >= (const SimplyNode& t) const
 {
     return !(*this < t);

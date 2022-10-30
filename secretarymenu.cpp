@@ -1,4 +1,6 @@
-﻿#include "secretarymenu.hpp"
+﻿#include <iostream>
+
+#include "secretarymenu.hpp"
 
 using namespace std;
 
@@ -6,6 +8,7 @@ SecretaryMenu::SecretaryMenu() {}
 
 // SecretaryMenu::SecretaryMenu(AgentList*) { }
 
+//EXITO
 void SecretaryMenu::mainMenu()
 {
     AgentList* aList = new AgentList();
@@ -65,6 +68,7 @@ void SecretaryMenu::mainMenu()
     } while (menu0 != 0);
 }
 
+//EXITO
 void SecretaryMenu::addAgent(AgentList* aList)
 {
     // AGREGAR NUEVO AGENTE
@@ -250,6 +254,7 @@ void SecretaryMenu::addAgent(AgentList* aList)
     pause();
 }
 
+// ERROR
 void SecretaryMenu::delAgent(AgentList* aList)
 {
     DoubleNode* aux = aList->getFirstPos();
@@ -289,17 +294,23 @@ void SecretaryMenu::delAgent(AgentList* aList)
 
                 if (c == 'S')
                 {
+                    // BREAK POINT
                     aList->deleteNode(aux);
 
                     system("cls");
                     cout << "Menu Eliminar Agente" << endl << endl;
                     cout << "Agente eliminado satisfactoriamente" << endl;
+                    cout << "Retornando al menu principal" << endl;
+                    cin.ignore();
+                    pause();
                 }
-                system("cls");
-                cout << "Menu Eliminar Agente" << endl << endl;
-                cout << "Retornando al menu principal" << endl;
+                else {
+                    system("cls");
+                    cout << "Menu Eliminar Agente" << endl << endl;
+                    cout << "Operacion Cancelada " << endl << "Retornando al menu principal" << endl;
 
-                pause();
+                    pause();
+                }
 
                 return;
             }
@@ -323,6 +334,7 @@ void SecretaryMenu::delAgent(AgentList* aList)
     }
 }
 
+// EXITO
 void SecretaryMenu::showAgentList(AgentList* aList)
 {
     DoubleNode* aux = aList->getFirstPos();
@@ -365,9 +377,11 @@ void SecretaryMenu::showAgentList(AgentList* aList)
 
     cout << aList->toString(myBool);
 
+    cin.ignore();
     pause();
 }
 
+// PENDIENTE
 void SecretaryMenu::sornAgentList(AgentList* aList)
 {
     int myInt;
@@ -391,6 +405,7 @@ void SecretaryMenu::sornAgentList(AgentList* aList)
     }
 }
 
+// TESTEAR
 void SecretaryMenu::findAgent(AgentList* aList)
 {
     DoubleNode* aux = aList->getFirstPos();
@@ -429,6 +444,7 @@ void SecretaryMenu::findAgent(AgentList* aList)
     } while (aux != nullptr);
 }
 
+// TESTEAR
 void SecretaryMenu::modAgent(AgentList* aList)
 {
     Name n;
@@ -640,6 +656,7 @@ void SecretaryMenu::modAgent(AgentList* aList)
     } while (aux != nullptr);
 }
 
+// TESTEAR
 void SecretaryMenu::addClientToAgent(AgentList* aList)
 {
     SimplyNode* node = new SimplyNode();
@@ -648,24 +665,27 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
     Time* t = new Time();
     string cadena;
     int x;
+    bool flag = false;
 
     // Busqueda de cliente por numero de empleado
+    system("cls");
+    cout << "AGREGAR CLIENTE A UN AGENTE";
+    cout << endl << "Numero de empleado [9 digitos]" << endl << ": ";
+
+    cin >> cadena;
+
     do
     {
         if (aux->getData().getEmployeeNumber() == cadena)
         {
-            system("cls");
-            cout << "AGREGAR CLIENTE A UN AGENTE";
-            cout << endl << "Numero de empleado [9 digitos]" << endl << ": ";
-
-            cin >> cadena;
-
             // Hora de atencion
             do
             {
                 system("cls");
-                cout << "AGREGAR CLIENTE A UN AGENTE";
-                cout << endl << "Hora de atencion [HH:] " << endl << ": ";
+                cout << "AGREGAR CLIENTE A UN AGENTE" << endl << endl;
+                cout << "Agente encontrado Exitosamente" << endl << endl;
+                cout << "Por favor rellene los siguientes datos" << endl;
+                cout << "Hora de atencion [HH:] " << endl << ": ";
 
                 cin >> x;
             } while (x > 24 || x < 0);
@@ -725,9 +745,20 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
             } while (x > 59 || x < 0);
             t->setSecond(x);
 
-            call->setAtentionDuration(*t);
-            node->setData(*call);
-            aux->getData().getClientList().insertOrdered(*node);
+            call->setAtentionDuration(*t); // EXITO
+            node->setData(*call); // EXITO
+            aux->getData().getClientList().insertOrdered(*node); // ERROR
+            cout << aux->getData().getClientList().toString(); // ANCHOR NO MANTIENE VALOR
+
+            cout << "Cliente agregado Exitosamente" << endl << endl;
+            //cout << call->toString();
+            //cout << aux->getData().toString(false);
+            //cout << node->getData().toString();
+            //cout << aux->getData().getClientList().getFirstPos()->getData().getAtentionDuration().getHour();
+
+            flag = true;
+            cin.ignore();
+            pause();
         }
         else
         {
@@ -738,12 +769,15 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
                 cout << "Agente no encontrado" << endl;
                 cout << cadena << " no fue localizado." << endl << endl;
 
+                flag = true;
+                cin.ignore();
                 pause();
             }
         }
-    } while (aux != nullptr);
+    } while (!flag);
 }
 
+// TESTEAR
 void SecretaryMenu::deleteClientToAgent(AgentList* aList)
 {
     int x;
@@ -818,6 +852,7 @@ void SecretaryMenu::deleteClientToAgent(AgentList* aList)
     }
 }
 
+// TESTEAR
 void SecretaryMenu::modAtDrtnToAgent(AgentList* aList) // E6
 {
     Time* t = new Time();
@@ -889,14 +924,41 @@ void SecretaryMenu::modAtDrtnToAgent(AgentList* aList) // E6
     s->getData().setTimeAtention(*t);
 }
 
+// PENDIENTE
 void SecretaryMenu::saveLists(AgentList* aList)
 {
+    char myChar;
+
+    system("cls");
+    cout << "MENU GUARDAR" << endl << endl;
+    cout << "Desea guardar la lista? [S/N] : ";
+
+    cin >> myChar;
+
+    myChar = toupper(myChar);
+
+    if (myChar == 'S') {
+        system("cls");
+        cout << "MENU GUARDAR" << endl << endl;
+        cout << "Guardando Lista..." << endl;
+        
+        aList->writeToDisk();
+        //Condicional que confirma guardado
+    }
+    else {
+        system("cls");
+        cout << "MENU GUARDAR" << endl << endl;
+        cout << "Retornando al menu principal" << endl << endl;
+        pause();
+    }
 }
 
+// PENDIENTE
 void SecretaryMenu::loadLists(AgentList* aList)
 {
 }
 
+// EXITO
 void SecretaryMenu::pause()
 {
     cout << "\nEnter para continuar...";

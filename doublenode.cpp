@@ -1,70 +1,91 @@
-//Librerias de compilador
 #include<iostream>
-//Librerias de Usuario
+
 #include "doublenode.hpp"
 
 using namespace std;
 
-//Constructor Normal
+// EXITO
 DoubleNode::DoubleNode() : next(nullptr), prev(nullptr) {}
 
-//Constructor Menos Normal
+// EXITO
 DoubleNode::DoubleNode(const Agent& sn) : next(nullptr), prev(nullptr), data(sn) {}
 
-//Getters
-//Get de Datos de Agente
+// EXITO
 Agent DoubleNode::getData() const {
     return data;
 }
 
-//Get de Nodo Anterior
-DoubleNode* DoubleNode::getprev() {
+// EXITO
+DoubleNode* DoubleNode::getPrev() {
     return prev;
 }
 
-//Get de Siguiente Nodo
+// EXITO
 DoubleNode* DoubleNode::getNext() {
     return next;
 }
 
-//Setters
-//Set de Datos de Agente
+// EXITO
 void DoubleNode::setData(const Agent& a) {
     data = a;
 }
 
-//Set del Nodo Anterior
+// EXITO
 void DoubleNode::setNext(DoubleNode* p) {
-    next = p;
+    if (p != nullptr) {
+        next = p;
+    }
 }
 
+// EXITO
+void DoubleNode::setPrev(DoubleNode* p) {
+    if (p != nullptr) {
+        prev = p;
+    }
+}
+
+// EXITO
+DoubleNode& DoubleNode::operator = (const DoubleNode& d) {
+    data = d.data;
+    next = d.next;
+    prev = d.prev;
+
+    return *this;
+}
+
+// TESTEAR
 bool DoubleNode::operator == (const DoubleNode& p) const
 {
     return data.getEmployeeNumber() == p.data.getEmployeeNumber();
 }
 
+// TESTEAR
 bool DoubleNode::operator != (const DoubleNode& p) const
 {
     return !(*this == p);
 
 }
 
+// TESTEAR
 bool DoubleNode::operator < (const DoubleNode& p) const
 {
     bool x = false;
     return data.toString(x) < p.data.toString(x);
 }
 
+// TESTEAR
 bool DoubleNode::operator <= (const DoubleNode& p) const
 {
     return *this < p || *this == p;
 }
 
+// TESTEAR
 bool DoubleNode::operator > (const DoubleNode& p) const
 {
     return !(*this <= p);
 }
 
+// TESTEAR
 bool DoubleNode::operator >= (const DoubleNode& p) const
 {
     return !(*this < p);

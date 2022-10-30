@@ -1,57 +1,55 @@
-﻿//Librerias de compilador
-#include<iostream>
+﻿#include<iostream>
 #include<string>
 #include<chrono>
-//Librerias de Usuario
+
 #include "time.hpp"
 
 using namespace std;
 
-//Constructor Normal
+// EXITO
 Time::Time() {
     hour = 0;
     minute = 0;
     second = 0;
 }
 
-//Constructor Menos Normal
+// EXITO
 Time::Time(const Time& t) : hour(t.hour), minute(t.minute), second(t.second) {}
 
+// EXITO
 Time::~Time() { }
 
-//Getters
-//Get de Hora
+// EXITO
 int Time::getHour() const {
     return hour;
 }
 
-//Get de Minuto
+// EXITO
 int Time::getMinute() const {
     return minute;
 }
 
-//Get de Segundo
+// EXITO
 int Time::getSecond() const {
     return second;
 }
 
-//Setters
-//Set de Hora
+// EXITO
 void Time::setHour(const int& h) {
     hour = h;
 }
 
-//Set de Minuto
+// EXITO
 void Time::setMinute(const int& m) {
     minute = m;
 }
 
-//Set de segundo
+// EXITO
 void Time::setSecond(const int& s) {
     second = s;
 }
 
-//Impresi�n de Tiempo
+// EXITO
 string Time::toString() const {
     string cadena;
     if (getHour() < 10) {
@@ -77,7 +75,7 @@ string Time::toString() const {
     return cadena;
 }
 
-//Operador Asignaci�n
+// EXITO
 Time& Time::operator = (const Time& t) {
     hour = t.hour;
     minute = t.minute;
@@ -86,32 +84,32 @@ Time& Time::operator = (const Time& t) {
     return *this;
 }
 
-//Operador Igualdad
+// TESTEAR
 bool Time::operator == (const Time& t) const {
     return toString() == t.toString();
 }
 
-//Operador Es Diferente
+// TESTEAR
 bool Time::operator != (const Time& t) const {
     return toString() != t.toString();
 }
 
-//Operador Menor Que
+// TESTEAR
 bool Time::operator < (const Time& t) const {
     return toString() < t.toString();
 }
 
-//Operador Menor o Igual
+// TESTEAR
 bool Time::operator <= (const Time& t) const {
     return *this < t || *this == t;
 }
 
-//Operador Mayor Que
+// TESTEAR
 bool Time::operator > (const Time& t) const {
     return !(*this <= t);
 }
 
-//Operador Mayor o Igual
+// TESTEAR
 bool Time::operator >= (const Time& t) const {
     return !(*this < t);
 }

@@ -1,107 +1,105 @@
-﻿//Librer�as del compilador
-#include <iostream>
-//Librer�as de usuario
+﻿#include <iostream>
+
 #include "agent.hpp"
 
 using namespace std;
 
-//Constructor normalito
-Agent::Agent() { }
+// EXITO
+Agent::Agent() {}
 
+// EXITO
 Agent::~Agent() { }
 
-//Constructor un poco menos normalito
-Agent::Agent(const Agent& a) : extensionNumber(a.extensionNumber), specialty(a.specialty), employeeNumber(a.employeeNumber), extraHours(a.extraHours), name(a.name), startTime(a.startTime), endTime(a.endTime) {}
+// EXITO
+Agent::Agent(const Agent& a) : extensionNumber(a.extensionNumber), specialty(a.specialty), employeeNumber(a.employeeNumber), extraHours(a.extraHours), name(a.name), startTime(a.startTime), endTime(a.endTime), clientList(a.clientList) {}
 
-//Getters
-//Get De N�mero de empleado
+// EXITO
 string Agent::getEmployeeNumber() const {
     return employeeNumber;
 }
 
-//Get de N�mero de Extensi�n
+// EXITO
 string Agent::getExtensionNumber() const {
     return extensionNumber;
 }
 
-//Get de Especialidad
+// EXITO
 string Agent::getSpecialty() const {
     return specialty;
 }
 
-//Get de Horas Extra
+// EXITO
 string Agent::getExtraHours() const {
     return extraHours;
 }
 
-//Get de la clase Nombre
+// EXITO
 Name Agent::getName() const {
     return name;
 }
 
-//Get de la clase Tiempo para conseguir la hora de Entrada
+// EXITO
 Time Agent::getStartTime() const {
     return startTime;
 }
 
-//Get de la clase Tiempo para conseguir la hora de Salida
+// EXITO
 Time Agent::getEndTime() const {
     return endTime;
 }
 
-//Get de la lista de clientes
+// ERROR
 ClientList Agent::getClientList() const {
     return clientList;
 }
 
-//Impresi�n de toda la informaci�n del Agente
+// ERROR
 string Agent::toString(bool myBool) const {
-    string cadena;
-
-    cadena += "Nombre: " + getName().toString() + "\nEspecialidad: " + getSpecialty() + "\nNumero de Empleado: " + getEmployeeNumber() + "\nNumero de Extension: " + getExtensionNumber() + "\nHora de Entrada: " + getStartTime().toString() + "\nHora de Salida: " + getEndTime().toString() + "\nHoras Extra: " + getExtraHours() + "\n";
+    string result;
+    result += "Nombre: " + getName().toString() + "\nEspecialidad: " + getSpecialty() + "\nNumero de Empleado: " + getEmployeeNumber() + "\nNumero de Extension: " + getExtensionNumber() + "\nHora de Entrada: " + getStartTime().toString() + "\nHora de Salida: " + getEndTime().toString() + "\nHoras Extra: " + getExtraHours() + "\n";
 
     if (myBool == true) {
-        cadena += "\n\tLista de Clientes Atendidos:\n" + getClientList().toString() + "\n\n";
+        result += "\n\tLista de Clientes Atendidos:\n" + getClientList().toString() + "\n\n";
     }
-    return cadena;
+    return result;
 }
 
-//Set de N�mero de Extensi�n
+// EXITO
 void Agent::setExtensionNumber(const string& exn) {
     extensionNumber = exn;
 }
 
-//Set de Especialidad
+// EXITO
 void Agent::setSpeciality(const string& s) {
     specialty = s;
 }
 
-//Set de Nombre
+// EXITO
 void Agent::setName(const Name& n) {
     name = n;
 }
 
-//Set de N�mero de Empleado
+// EXITO
 void Agent::setEmployeeNumber(const string& en) {
     employeeNumber = en;
 }
 
-//Set de Horas Extras
+// EXITO
 void Agent::setExtraHours(const string& exh) {
     extraHours = exh;
 }
 
-//Set de Hora de inicio
+// EXITO
 void Agent::setStartTime(const Time& st) {
     startTime = st;
 }
 
-//Set de Hora de salida
+// EXITO
 void Agent::setEndTime(const Time& et) {
     endTime = et;
 }
 
-//Operador Asignaci�n
+// EXITO
 Agent& Agent::operator = (const Agent& a) {
     extensionNumber = a.extensionNumber;
     specialty = a.specialty;
@@ -110,36 +108,49 @@ Agent& Agent::operator = (const Agent& a) {
     name = a.name;
     startTime = a.startTime;
     endTime = a.endTime;
+    clientList = a.clientList;
 
     return *this;
 }
 
-//Operador Igualdad
+// TESTEAR
 bool Agent::operator == (const Agent& a) const {
     return employeeNumber == a.employeeNumber;
 }
 
-//Operador Es Diferente
+// TESTEAR
 bool Agent::operator != (const Agent& a) const {
     return !(*this == a);
 }
 
-//Operador Menor Que
+// TESTEAR
 bool Agent::operator < (const Agent& a) const {
     return employeeNumber < a.employeeNumber;
 }
 
-//Operador Menor o Igual
+// TESTEAR
 bool Agent::operator <= (const Agent& a) const {
     return *this < a || *this == a;
 }
 
-//Operador Mayor Que
+// TESTEAR
 bool Agent::operator > (const Agent& a) const {
     return !(*this <= a);
 }
 
-//Operador Mayor o Igual
+// TESTEAR
 bool Agent::operator >= (const Agent& a) const {
     return !(*this < a);
 }
+
+/*
+std::ostream& operator<<(std::ostream&, const Agent&)
+{
+    // TODO: Insertar una instrucción "return" aquí
+}
+
+std::istream& operator>>(std::istream&, Agent&)
+{
+    // TODO: Insertar una instrucción "return" aquí
+}
+*/

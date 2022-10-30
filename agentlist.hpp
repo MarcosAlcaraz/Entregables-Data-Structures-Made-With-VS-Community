@@ -35,8 +35,8 @@ public:
 
     DoubleNode* findData(DoubleNode&); // (READY) E8 E9
 
-    void readFromDisk(const std::string&);
-    void writeToDisk(const std::string&);
+    void readFromDisk();
+    void writeToDisk();
 };
 
 #endif // __AGENTLIST_H__

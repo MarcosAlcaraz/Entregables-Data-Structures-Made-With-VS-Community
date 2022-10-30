@@ -18,7 +18,7 @@ public:
 
     bool isEmpty();  // E4
     void deleteAll(); // (READY) E5 E6
-    void deleteClient(); // (READY) E5 E6
+    void deleteClient(SimplyNode*); // (READY) E5 E6
     void insertOrdered(SimplyNode&); // E4 E6
     bool isValidPos(SimplyNode&); //(READY) Test
     std::string toString();  // E4

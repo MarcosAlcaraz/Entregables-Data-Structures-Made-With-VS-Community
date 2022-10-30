@@ -1,29 +1,36 @@
 ﻿#include <iostream>
+#include <fstream>
+
 #include "agentlist.hpp"
 
 using namespace std;
 
+// EXITO
+AgentList::AgentList() : anchor(nullptr) {}
 
-AgentList::AgentList() : anchor(nullptr) { } // E7
+// EXITO
+AgentList::AgentList(const AgentList&) : anchor(nullptr) {}
 
-AgentList::AgentList(const AgentList&) : anchor(nullptr) { }
-
+// EXITO
 AgentList::~AgentList()
 {
     deleteAll();
 }
 
+// EXITO
 void AgentList::insertAgent(DoubleNode& nuevoAgente) // E7
 {
     nuevoAgente.setNext(anchor); //nuevoAgente apunta a lo que apunta anchor
     anchor = &nuevoAgente;
 }
 
+// EXITO
 bool AgentList::isEmpty() // E7
 {
     return anchor == nullptr;
 }
 
+// EXITO
 bool AgentList::isValidPos(DoubleNode& p)
 {
     if (&p == nullptr)
@@ -35,6 +42,7 @@ bool AgentList::isValidPos(DoubleNode& p)
     }
 }
 
+// EXITO
 string AgentList::toString(bool myBool) // E7
 {
     DoubleNode* aux = anchor;
@@ -50,6 +58,7 @@ string AgentList::toString(bool myBool) // E7
     return result;
 }
 
+// TESTEAR
 void AgentList::deleteAll()
 {
     DoubleNode* aux = nullptr;
@@ -62,11 +71,23 @@ void AgentList::deleteAll()
     }
 }
 
+// ERROR (TESTEAR)
 void AgentList::deleteNode(DoubleNode* del)
 {
+    del->getPrev()->setNext(del->getNext());
+    del->getNext()->setPrev(del->getPrev());
     delete del;
 }
 
+void AgentList::sortByName(DoubleNode*, DoubleNode*)
+{
+}
+
+void AgentList::sortBySpeciality(DoubleNode*, DoubleNode*)
+{
+}
+
+// PENDIENTE
 // void AgentList::sortByName(DoubleNode* leftEdge, DoubleNode* rightEdge) {
 //     if(leftEdge == 'rightedge') { //En caso de haber un solo elemento
 //         return;
@@ -102,6 +123,7 @@ void AgentList::deleteNode(DoubleNode* del)
 //         swapPtr(i, rightEdge);
 //     }
 
+// PENDIENTE
 //     //Divide Y vencer�s
 //     if(leftEdge != i) {
 //         sortByName(leftEdge, i->getPrev());
@@ -111,10 +133,12 @@ void AgentList::deleteNode(DoubleNode* del)
 //     }
 // }
 
+// PENDIENTE
 // void StudentList::sortByGrade() {
 //     sortByGrade(header->getNext(), header->getPrev());
 // }
 
+// PENDIENTE
 // void StudentList::SortByGrade() {
 //     if(leftEdge == 'rightedge') { //En caso de haber un solo elemento
 //         return;
@@ -159,27 +183,36 @@ void AgentList::deleteNode(DoubleNode* del)
 //     }
 // }
 
+// PENDIENTE
 // void StudentList::swapPtr(StudentNodet* a, StudentNode* b) {
 //     Student* aux(a->getDataPtr());
 //     a->setDataPtr(b->getDataPtr());
 //     b->sedDataPtr(aux);
 // }
 
-void AgentList::readFromDisk(const std::string&)
+// PENDIENTE
+void AgentList::readFromDisk()
 {
     //Lee de un archivo
 }
 
-void AgentList::writeToDisk(const std::string&)
+// PENDIENTE
+void AgentList::writeToDisk()
 {
-    //Escribe en un archivo
+    ofstream file;
+
+    file.open("backup.agentlist");
+
+
 }
 
+// EXITO
 DoubleNode* AgentList::getFirstPos() const
 {
     return anchor;
 }
 
+// TESTEAR (Reconstruido)
 DoubleNode* AgentList::getLastPos() const
 {
     if (anchor == nullptr)
@@ -189,27 +222,26 @@ DoubleNode* AgentList::getLastPos() const
 
     DoubleNode* aux = anchor;
 
-    do
-    {
-        if (aux->getNext() == nullptr)
-        {
-            return aux;
-        }
+    while (aux->getNext() != nullptr) {
         aux = aux->getNext();
-    } while (aux->getNext() == nullptr);
+    }
+    return aux;
 
 }
 
+// EXITO
 DoubleNode* AgentList::getNextPos(DoubleNode& p) const
 {
     return p.getNext();
 }
 
+// EXITO
 DoubleNode* AgentList::getPreviousPos(DoubleNode& p) const
 {
-    return p.getprev();
+    return p.getPrev();
 }
 
+// TESTEAR
 DoubleNode* AgentList::findData(DoubleNode& p)
 {
     if (!(isValidPos(p)))
@@ -230,6 +262,7 @@ DoubleNode* AgentList::findData(DoubleNode& p)
     } while (aux->getData().getEmployeeNumber() != p.getData().getEmployeeNumber());
 }
 
+// TESTEAR
 Agent AgentList::retrieve(DoubleNode& p)
 {
     if (!(isValidPos(p)))
