@@ -74,3 +74,17 @@ bool Client::operator > (const Client& t) const {
 bool Client::operator >= (const Client& t) const {
     return !(*this < t);
 }
+
+std::ostream& operator << (std::ostream& os, const Client& c)
+{
+    os << c.getAtentionDuration() << endl;
+    os << c.getTimeAtention() << endl;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Client& c)
+{
+    is >> c.atentionDuration;
+    is >> c.timeAtention;
+    return is;
+}

@@ -35,8 +35,8 @@ public:
 
     DoubleNode* findData(DoubleNode&); // (READY) E8 E9
 
-    void readFromDisk();
-    void writeToDisk();
+    bool readFromDisk();
+    bool writeToDisk();
 };
 
 #endif // __AGENTLIST_H__

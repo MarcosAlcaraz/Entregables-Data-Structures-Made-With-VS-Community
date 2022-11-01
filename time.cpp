@@ -113,3 +113,19 @@ bool Time::operator > (const Time& t) const {
 bool Time::operator >= (const Time& t) const {
     return !(*this < t);
 }
+
+std::ostream& operator<<(std::ostream& os, const Time& t)
+{
+    os << t.getHour() << endl;
+    os << t.getMinute() << endl;
+    os << t.getSecond() << endl;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Time& t)
+{
+    is >> t.hour;
+    is >> t.minute;
+    is >> t.second;
+    return is;
+}

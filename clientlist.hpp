@@ -7,35 +7,30 @@
 class ClientList
 {
 private:
-    // ARTRIBUTOS
     SimplyNode* anchor;
 
 public:
-    // CONSTRUCTOR
-    ClientList(); // E4
-    ClientList(const ClientList&); // E4
-    ~ClientList(); // (READY) E5
+    ClientList();
+    ClientList(const ClientList&);
+    ~ClientList();
 
-    bool isEmpty();  // E4
-    void deleteAll(); // (READY) E5 E6
-    void deleteClient(SimplyNode*); // (READY) E5 E6
-    void insertOrdered(SimplyNode&); // E4 E6
-    bool isValidPos(SimplyNode&); //(READY) Test
-    std::string toString();  // E4
+    bool isEmpty(); 
+    void deleteAll();
+    void deleteClient(SimplyNode*);
+    void insertOrdered(SimplyNode&);
+    bool isValidPos(SimplyNode&);
+    std::string toString();
+    std::string findData(const Client&) const;
 
-    void readFromDisk(const std::string&);
-    void writeToDisk(const std::string&);
+    void readFromDisk(std::string&);
+    void writeToDisk(std::string&);
 
     SimplyNode* getFirstPos() const;
     SimplyNode* getLastPos() const;
     SimplyNode* getPrevPos(const SimplyNode&);
     SimplyNode* getNextPos(SimplyNode&) const;
 
-    std::string findData(const Client&) const; // (READY) E5
-
-    Client retrieve(SimplyNode&); // (READY)
-
-    void deleteClientList();
+    Client retrieve(SimplyNode&);
 };
 
 #endif // CLIENTLIST_HPP

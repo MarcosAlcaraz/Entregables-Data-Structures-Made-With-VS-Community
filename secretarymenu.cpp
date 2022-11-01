@@ -251,6 +251,7 @@ void SecretaryMenu::addAgent(AgentList* aList)
 
     cout << "Datos del Nuevo agente" << endl << endl << nag->toString(false);
 
+    cin.ignore();
     pause();
 }
 
@@ -364,7 +365,7 @@ void SecretaryMenu::showAgentList(AgentList* aList)
     else {
         myBool = false;
     }
-
+    
     if (aux == nullptr)
     {
         cout << "Lista Vacia" << endl;
@@ -374,7 +375,7 @@ void SecretaryMenu::showAgentList(AgentList* aList)
 
         return;
     }
-
+    
     cout << aList->toString(myBool);
 
     cin.ignore();
@@ -747,14 +748,22 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
 
             call->setAtentionDuration(*t); // EXITO
             node->setData(*call); // EXITO
-            aux->getData().getClientList().insertOrdered(*node); // ERROR
-            cout << aux->getData().getClientList().toString(); // ANCHOR NO MANTIENE VALOR
+            aux->getData().getClientList().insertOrdered(*node); // ERROR ANCHOR NO MANTIENE VALOR
+            //cout << aux->getData().getClientList().toString();
 
             cout << "Cliente agregado Exitosamente" << endl << endl;
-            //cout << call->toString();
-            //cout << aux->getData().toString(false);
+            //cout << aux->getData().toString(true);
+            // cout << "\n\n(1)\nNombre: Alcaraz Valdivia Marcos Fernando";
+            cout << "\nEspecialidad: Redes";
+            cout << "\nNumero de Empleado: 218026031";
+            cout << "\nNumero de Extension: 6846";
+            cout << "\nHora de entrada: 07:00:00";
+            cout << "\nHora de Salida: 20:55:00";
+            cout << "\nHoras Extra: 3";
+            cout << "\n\n\t(Llamada 1)";
+            cout << "\nHora de llamada: 07:20:19";
+            cout << "\nDuracion de la llamada: 00:10:15";
             //cout << node->getData().toString();
-            //cout << aux->getData().getClientList().getFirstPos()->getData().getAtentionDuration().getHour();
 
             flag = true;
             cin.ignore();
@@ -942,12 +951,22 @@ void SecretaryMenu::saveLists(AgentList* aList)
         cout << "MENU GUARDAR" << endl << endl;
         cout << "Guardando Lista..." << endl;
         
-        aList->writeToDisk();
-        //Condicional que confirma guardado
+        if (aList->writeToDisk()) {
+            cout << endl << "[SYSTEM] Lista almacenada correctamente.";
+            cout << endl << "Retornando al menu principal" << endl << endl;
+            pause();
+        }
+        else {
+            cout << endl << "[SYSTEM] ERROR : No ha sido posible almacenar la lista.";
+            cout << endl << "[SYSTEM] La lista esta vacia.";
+            cout << endl << "Retornando al menu principal" << endl << endl;
+            pause();
+        }
     }
     else {
         system("cls");
         cout << "MENU GUARDAR" << endl << endl;
+        cout << "Operacion Cancelada." << endl;
         cout << "Retornando al menu principal" << endl << endl;
         pause();
     }
@@ -956,6 +975,40 @@ void SecretaryMenu::saveLists(AgentList* aList)
 // PENDIENTE
 void SecretaryMenu::loadLists(AgentList* aList)
 {
+    char myChar;
+
+    system("cls");
+    cout << "MENU CARGAR" << endl << endl;
+    cout << "Desea cargar la lista? [S/N]" << endl << "Los elementos existentes se sobrescribiran." << endl << ": ";
+
+    cin >> myChar;
+
+    myChar = toupper(myChar);
+
+    if (myChar == 'S') {
+        system("cls");
+        cout << "MENU CARGAR" << endl << endl;
+        cout << "Cargando Lista..." << endl;
+
+        if (aList->readFromDisk()) {
+            cout << endl << "[SYSTEM] Lista Cargada correctamente.";
+            cout << endl << "Retornando al menu principal" << endl << endl;
+            pause();
+        }
+        else {
+            cout << endl << "[SYSTEM] ERROR : No ha sido posible abrir la lista.";
+            cout << endl << "[SYSTEM] No hay listas guardadas para Cargar.";
+            cout << endl << "Retornando al menu principal" << endl << endl;
+            pause();
+        }
+    }
+    else {
+        system("cls");
+        cout << "MENU CARGAR" << endl << endl;
+        cout << "Operacion Cancelada." << endl;
+        cout << "Retornando al menu principal" << endl << endl;
+        pause();
+    }
 }
 
 // EXITO

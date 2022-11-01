@@ -199,3 +199,34 @@ bool ClientList::isEmpty()
 {
     return anchor == nullptr;
 }
+
+void ClientList::writeToDisk(string& employeeNumber)
+{
+    SimplyNode* aux = anchor;
+    ofstream file;
+    string fileName;
+    fileName += employeeNumber + ".clientlist";
+    file.open("backup.agentlist");
+    if (file) {
+        while (aux != nullptr) {
+            file << aux->getData();
+            aux = aux->getNext();
+        }
+    }
+    file.close();
+}
+
+void ClientList::readFromDisk(string& employeeNumber)
+{
+    SimplyNode* ndn = new SimplyNode();
+    Client* ncall = new Client();
+    ifstream file;
+    string fileName;
+    int myInt = 0;
+
+    fileName += employeeNumber + ".clientlist";
+    if (file) {
+        file >> *ncall;
+    }
+    
+}

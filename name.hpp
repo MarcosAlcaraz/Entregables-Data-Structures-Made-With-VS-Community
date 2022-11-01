@@ -32,7 +32,7 @@ public:
     bool operator >= (const Name&) const;
 
     friend std::ostream& operator << (std::ostream&, const Name&);
-    friend std::ostream& operator >> (std::ostream&, Name&);
+    friend std::istream& operator >> (std::istream&, Name&);
 };
 
 #endif // NAME_HPP

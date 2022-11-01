@@ -78,3 +78,17 @@ bool Name::operator > (const Name& t) const {
 bool Name::operator >= (const Name& t) const {
     return !(*this < t);
 }
+
+std::ostream& operator << (std::ostream& os, const Name& n)
+{
+    os << n.getName() << endl;
+    os << n.getLastName() << endl;
+    return os;
+}
+
+std::istream& operator >> (std::istream& is, Name& n)
+{
+    is >> n.name;
+    is >> n.lastName;
+    return is;
+}

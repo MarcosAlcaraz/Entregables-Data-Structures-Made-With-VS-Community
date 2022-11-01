@@ -191,19 +191,46 @@ void AgentList::sortBySpeciality(DoubleNode*, DoubleNode*)
 // }
 
 // PENDIENTE
-void AgentList::readFromDisk()
+bool AgentList::readFromDisk()
 {
-    //Lee de un archivo
-}
-
-// PENDIENTE
-void AgentList::writeToDisk()
-{
-    ofstream file;
+    DoubleNode* ndn = new DoubleNode();
+    Agent* nag = new Agent();
+    ifstream file;
+    string myString;
+    int myInt = 0;
 
     file.open("backup.agentlist");
+    if (!file) {
+        return false;
+    }
+    //while (getline(file, myString)) { }
+    file >> *nag;
+}
+    
 
+// PENDIENTE
+bool AgentList::writeToDisk()
+{
+    DoubleNode* aux = anchor;
+    ofstream file;
 
+    if (anchor == nullptr) {
+        file.open("backup.agentlist", file.trunc);
+        if (!file.is_open()) {
+            return false;
+        }
+        while (aux != nullptr)
+        {
+            file << aux->getData() << endl;
+            aux = aux->getNext();
+        }
+        file.close();
+        return true;
+    }
+    else {
+        file.close();
+        return false;
+    }
 }
 
 // EXITO

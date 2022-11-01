@@ -48,12 +48,12 @@ Time Agent::getEndTime() const {
     return endTime;
 }
 
-// ERROR
+// TESTEAR (NO es posible almacenar Llamadas)
 ClientList Agent::getClientList() const {
     return clientList;
 }
 
-// ERROR
+// TESTEAR (NO es posible almacenar Llamadas)
 string Agent::toString(bool myBool) const {
     string result;
     result += "Nombre: " + getName().toString() + "\nEspecialidad: " + getSpecialty() + "\nNumero de Empleado: " + getEmployeeNumber() + "\nNumero de Extension: " + getExtensionNumber() + "\nHora de Entrada: " + getStartTime().toString() + "\nHora de Salida: " + getEndTime().toString() + "\nHoras Extra: " + getExtraHours() + "\n";
@@ -143,14 +143,30 @@ bool Agent::operator >= (const Agent& a) const {
     return !(*this < a);
 }
 
-/*
-std::ostream& operator<<(std::ostream&, const Agent&)
+ostream& operator << (ostream& os, const Agent& a)
 {
-    // TODO: Insertar una instrucción "return" aquí
+    string x = a.getEmployeeNumber();
+    os << a.getExtensionNumber() << endl;
+    os << a.getSpecialty() << endl;
+    os << a.getEmployeeNumber() << endl;
+    os << a.getExtraHours() << endl;
+    os << a.getName() << endl;
+    os << a.getStartTime() << endl;
+    os << a.getEndTime() << endl;
+    a.getClientList().writeToDisk(x);
+    return os;
 }
 
-std::istream& operator>>(std::istream&, Agent&)
+istream& operator >> (istream& is, Agent& a)
 {
-    // TODO: Insertar una instrucción "return" aquí
+    string x = a.getEmployeeNumber();
+    is >> a.extensionNumber;
+    is >> a.specialty;
+    is >> a.employeeNumber;
+    is >> a.extraHours;
+    is >> a.name;
+    is >> a.startTime;
+    is >> a.endTime;
+    a.getClientList().readFromDisk(x);
+    return is;
 }
-*/
