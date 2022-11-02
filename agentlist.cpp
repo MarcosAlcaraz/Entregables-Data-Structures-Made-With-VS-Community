@@ -33,13 +33,7 @@ bool AgentList::isEmpty() // E7
 // EXITO
 bool AgentList::isValidPos(DoubleNode& p)
 {
-    if (&p == nullptr)
-    {
-        return false;
-    }
-    else {
-        return true;
-    }
+    return &p != nullptr;
 }
 
 // EXITO

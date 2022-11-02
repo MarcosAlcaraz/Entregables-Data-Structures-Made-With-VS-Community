@@ -1,39 +1,39 @@
 #ifndef __AGENTLIST_H__
 #define __AGENTLIST_H__
 
-//Librerias de usuario
 #include<iostream>
+
 #include"doublenode.hpp"
+#include "listexception.hpp"
 
 class AgentList
 {
 private:
-    //ARTRIBUTES
     DoubleNode* anchor;
 
 public:
-    //CONSTRUCTOR
-    AgentList(); // (READY) E7
-    AgentList(const AgentList&); // (READY)  E7
-    ~AgentList(); // (READY) E8
+    AgentList();
+    AgentList(const AgentList&);
+    ~AgentList();
 
-    void insertAgent(DoubleNode&); // (READY) E7
-    bool isEmpty(); // (READY) E7
-    bool isValidPos(DoubleNode&); // (READY)
-    std::string toString(bool); // (READY) E7
-    void deleteAll(); // (READY) E8
-    void deleteNode(DoubleNode*); // (READY) E8
+    bool isEmpty();
+    bool isValidPos(DoubleNode&);
+
+    void insertAgent(DoubleNode&);
+    void deleteAll();
+    void deleteNode(DoubleNode*);
     void sortByName(DoubleNode*, DoubleNode*);
     void sortBySpeciality(DoubleNode*, DoubleNode*);
 
+    std::string toString(bool);
+
     Agent retrieve(DoubleNode&);
 
-    DoubleNode* getFirstPos() const; // (READY)
-    DoubleNode* getLastPos() const; // (READY)
-    DoubleNode* getNextPos(DoubleNode&) const; //(READY) E8
-    DoubleNode* getPreviousPos(DoubleNode&) const; //(READY) E8
-
-    DoubleNode* findData(DoubleNode&); // (READY) E8 E9
+    DoubleNode* getFirstPos() const;
+    DoubleNode* getLastPos() const;
+    DoubleNode* getNextPos(DoubleNode&) const;
+    DoubleNode* getPreviousPos(DoubleNode&) const;
+    DoubleNode* findData(DoubleNode&);
 
     bool readFromDisk();
     bool writeToDisk();

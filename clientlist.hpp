@@ -2,7 +2,9 @@
 #define CLIENTLIST_HPP
 
 #include <iostream>
+
 #include "simplynode.hpp"
+#include "listexception.hpp"
 
 class ClientList
 {

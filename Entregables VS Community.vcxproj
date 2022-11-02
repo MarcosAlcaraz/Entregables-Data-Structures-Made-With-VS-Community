@@ -132,6 +132,7 @@
     <ClCompile Include="client.cpp" />
     <ClCompile Include="clientlist.cpp" />
     <ClCompile Include="doublenode.cpp" />
+    <ClCompile Include="listexception.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="name.cpp" />
     <ClCompile Include="secretarymenu.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="client.hpp" />
     <ClInclude Include="clientlist.hpp" />
     <ClInclude Include="doublenode.hpp" />
+    <ClInclude Include="listexception.hpp" />
     <ClInclude Include="name.hpp" />
     <ClInclude Include="secretarymenu.hpp" />
     <ClInclude Include="simplynode.hpp" />
