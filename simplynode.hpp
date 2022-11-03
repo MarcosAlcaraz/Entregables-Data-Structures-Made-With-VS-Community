@@ -32,6 +32,7 @@ public:
     //OPERATORs
     SimplyNode& operator=(const SimplyNode&);
 
+    bool isValid(const SimplyNode*) const;
     bool operator == (const SimplyNode&) const;
     bool operator != (const SimplyNode&) const;
     bool operator < (const SimplyNode&) const;

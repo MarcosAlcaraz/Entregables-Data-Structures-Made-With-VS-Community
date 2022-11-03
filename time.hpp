@@ -13,11 +13,13 @@ private:
 public:
     Time();
     Time(const Time&);
+    Time(const int&, const int&, const int&);
     ~Time();
 
     int getHour() const;
     int getMinute() const;
     int getSecond() const;
+    int toInt() const;
 
     void setHour(const int&);
     void setMinute(const int&);
@@ -27,6 +29,7 @@ public:
 
     Time& operator = (const Time&);
 
+    bool isValid(const int&, const int&, const int&) const;
     bool operator == (const Time&) const;
     bool operator != (const Time&) const;
     bool operator < (const Time&) const;

@@ -8,13 +8,28 @@ using namespace std;
 
 // EXITO
 Time::Time() {
-    hour = 0;
-    minute = 0;
-    second = 0;
+    chrono::system_clock::time_point today = chrono::system_clock::now();
+    time_t tt = chrono::system_clock::to_time_t (today);
+
+    struct tm* timeinfo = localtime(&tt);
+
+    hour = timeinfo->tm_hour;
+    minute = timeinfo->tm_min;
+    second = timeinfo->tm_sec;
 }
 
 // EXITO
 Time::Time(const Time& t) : hour(t.hour), minute(t.minute), second(t.second) {}
+
+// TESTEAR
+Time::Time(const int& h, const int& m, const int& s) : Time()
+{
+    if (isValid(h, m, s)) {
+        hour = h;
+        minute = m;
+        second = s;
+    }
+}
 
 // EXITO
 Time::~Time() { }
@@ -34,19 +49,28 @@ int Time::getSecond() const {
     return second;
 }
 
+// TESTEAR
+int Time::toInt() const
+{
+    return  (hour * 100) + (minute * 10) + second;
+}
+
 // EXITO
 void Time::setHour(const int& h) {
-    hour = h;
+    if(isValid(h, minute, second))
+        hour = h;
 }
 
 // EXITO
 void Time::setMinute(const int& m) {
-    minute = m;
+    if (isValid(hour, m, second))
+        minute = m;
 }
 
 // EXITO
 void Time::setSecond(const int& s) {
-    second = s;
+    if (isValid(hour, minute, s))
+        second = s;
 }
 
 // EXITO
@@ -85,47 +109,63 @@ Time& Time::operator = (const Time& t) {
 }
 
 // TESTEAR
+bool Time::isValid(const int& h, const int& m, const int& s) const
+{
+    return h <= 0 && h < 24 && m >= 0 && m < 60 && s >= 0 && s < 60;
+}
+
+// TESTEAR
 bool Time::operator == (const Time& t) const {
-    return toString() == t.toString();
+    return toInt() == t.toInt();
 }
 
 // TESTEAR
 bool Time::operator != (const Time& t) const {
-    return toString() != t.toString();
+    return toInt() != t.toInt();
 }
 
 // TESTEAR
 bool Time::operator < (const Time& t) const {
-    return toString() < t.toString();
+    return toInt() < t.toInt();
 }
 
 // TESTEAR
 bool Time::operator <= (const Time& t) const {
-    return *this < t || *this == t;
+    return toInt() <= t.toInt();
 }
 
 // TESTEAR
 bool Time::operator > (const Time& t) const {
-    return !(*this <= t);
+    return toInt() > t.toInt();
 }
 
 // TESTEAR
 bool Time::operator >= (const Time& t) const {
-    return !(*this < t);
+    return toInt() >= t.toInt();
 }
 
+// TESTEAR
 std::ostream& operator<<(std::ostream& os, const Time& t)
 {
-    os << t.getHour() << endl;
-    os << t.getMinute() << endl;
-    os << t.getSecond() << endl;
+    os << to_string(t.getHour()) << endl;
+    os << to_string(t.getMinute()) << endl;
+    os << to_string(t.getSecond()) << endl;
     return os;
 }
 
+// TESTEAR
 std::istream& operator>>(std::istream& is, Time& t)
 {
-    is >> t.hour;
-    is >> t.minute;
-    is >> t.second;
+    string myString;
+
+    getline(is, myString);
+    t.hour = stoi(myString);
+
+    getline(is, myString);
+    t.minute = stoi(myString);
+
+    getline(is, myString);
+    t.second = stoi(myString);
+
     return is;
 }

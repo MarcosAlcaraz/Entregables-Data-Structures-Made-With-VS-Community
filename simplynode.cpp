@@ -22,20 +22,7 @@ Client SimplyNode::getData() const {
 SimplyNode* SimplyNode::getNext() {
     return next;
 }
-/*
-// PENDIENTE
-SimplyNode* SimplyNode::getPreviousPos(const SimplyNode&)
-{
-    return nullptr;
-}
-*/
-/*
-// TESTEAR
-bool SimplyNode::nextIsNullptr(const SimplyNode& c)
-{
-    return c.next == nullptr;
-}
-*/
+
 // TESTEAR
 void SimplyNode::setData(const Client& c) {
     data = c;
@@ -43,13 +30,13 @@ void SimplyNode::setData(const Client& c) {
 
 // TESTEAR
 void SimplyNode::setNext(SimplyNode* p) {
-    if (p != nullptr) {
+    if (isValid(p)) {
         next = p;
     }
 }
 
 // TESTEAR
-SimplyNode& SimplyNode::operator=(const SimplyNode& c)
+SimplyNode& SimplyNode::operator = (const SimplyNode& c)
 {
     data = c.data;
     next = c.next;
@@ -58,37 +45,43 @@ SimplyNode& SimplyNode::operator=(const SimplyNode& c)
 }
 
 // TESTEAR
+bool SimplyNode::isValid(const SimplyNode* s) const
+{
+    return s != nullptr;
+}
+
+// TESTEAR
 bool SimplyNode::operator == (const SimplyNode& t) const
 {
-    return data.toString() == t.data.toString();
+    return data == t.data;
 }
 
 // TESTEAR
 bool SimplyNode::operator != (const SimplyNode& t) const
 {
-    return data.toString() != t.data.toString();
+    return data != t.data;
 }
 
 // TESTEAR
 bool SimplyNode::operator < (const SimplyNode& t) const
 {
-    return data.toString() < t.data.toString();
+    return data < t.data;
 }
 
 // TESTEAR
 bool SimplyNode::operator <= (const SimplyNode& t) const
 {
-    return *this < t || *this == t;
+    return data <= t.data;
 }
 
 // TESTEAR
 bool SimplyNode::operator > (const SimplyNode& t) const
 {
-    return !(*this <= t);
+    return data > t.data;
 }
 
 // TESTEAR
 bool SimplyNode::operator >= (const SimplyNode& t) const
 {
-    return !(*this < t);
+    return data >= t.data;
 }

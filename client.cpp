@@ -47,32 +47,32 @@ Client& Client::operator = (const Client& c) {
 
 // TESTEAR
 bool Client::operator == (const Client& t) const {
-    return toString() == t.toString();
+    return timeAtention == t.timeAtention;
 }
 
 // TESTEAR
 bool Client::operator != (const Client& t) const {
-    return toString() != t.toString();
+    return timeAtention != t.timeAtention;
 }
 
 // TESTEAR
 bool Client::operator < (const Client& t) const {
-    return toString() < t.toString();
+    return timeAtention < t.timeAtention;
 }
 
 // TESTEAR
 bool Client::operator <= (const Client& t) const {
-    return *this < t || *this == t;
+    return timeAtention <= t.timeAtention;
 }
 
 // TESTEAR
 bool Client::operator > (const Client& t) const {
-    return !(*this <= t);
+    return timeAtention > t.timeAtention;
 }
 
 // TESTEAR
 bool Client::operator >= (const Client& t) const {
-    return !(*this < t);
+    return timeAtention >= t.timeAtention;
 }
 
 std::ostream& operator << (std::ostream& os, const Client& c)
