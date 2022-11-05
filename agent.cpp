@@ -56,11 +56,19 @@ ClientList Agent::getClientList() const {
 // TESTEAR (NO es posible almacenar Llamadas)
 string Agent::toString(bool myBool) const {
     string result;
-    result += "Nombre: " + getName().toString() + "\nEspecialidad: " + getSpecialty() + "\nNumero de Empleado: " + getEmployeeNumber() + "\nNumero de Extension: " + getExtensionNumber() + "\nHora de Entrada: " + getStartTime().toString() + "\nHora de Salida: " + getEndTime().toString() + "\nHoras Extra: " + getExtraHours() + "\n";
+
+    result += "\nNombre: " + getName().toString();
+    result += "\nEspecialidad: " + getSpecialty();
+    result += "\nNumero de Empleado: " + getEmployeeNumber();
+    result += "\nNumero de Extension: " + getExtensionNumber();
+    result += "\nHora de Entrada: " + getStartTime().toString();
+    result += "\nHora de Salida: " + getEndTime().toString();
+    result += "\nHoras Extra: " + getExtraHours() + "\n";
 
     if (myBool == true) {
         result += "\n\tLista de Clientes Atendidos:\n" + getClientList().toString() + "\n\n";
     }
+
     return result;
 }
 

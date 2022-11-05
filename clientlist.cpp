@@ -18,72 +18,94 @@ ClientList::~ClientList()  //E5
     deleteAll();
 }
 
-// TESTEAR (Sin Uso)
-string ClientList::findData(const Client&) const  //E5
+// TESTEAR (Esperanzador)
+SimplyNode* ClientList::findData(const Client& client) const  //E5
 {
-    string myString;
-    SimplyNode* aux = anchor;
-    Time t;
-    /*int h, m, s;
+    SimplyNode* aux(anchor);
 
-    cout << "\nEscribe la hora de Atencion del cliente que desea buscar:\n\Escriba la hora (hh:): ";
-    cin >> h;
-    cout << "\nEscriba el minuto (:mm:): ";
-    cin >> m;
-    cout << "\nEscriba el segundo (:ss): ";
-    cin >> s;
-
-    t.setHour(h);
-    t.setMinute(m);
-    t.setSecond(s);*/
-
-    do
+    while (aux != nullptr && aux->getData() != client)
     {
-        if (aux->getData().getTimeAtention() == t)
+        aux = aux->getNext();
+    }
+
+    return aux;
+}
+
+// TESTEAR (Esperanzador)
+Client ClientList::retrieve(SimplyNode* p)
+{    
+    if (!isValidPos(p))
+    {
+        throw ListException("La posicion es Invalida - retrieve");
+    }
+
+    return p->getData();
+}
+
+// TESTEAR (Esperanzador)
+SimplyNode& ClientList::operator = (const ClientList& list)
+{
+    deleteAll();
+    SimplyNode* aux(list.anchor);
+    SimplyNode* aux1(nullptr);
+    SimplyNode* node;
+
+    while (aux != nullptr)
+    {
+        node = new SimplyNode(aux->getData());
+
+        if (node == nullptr)
         {
-            myString += "Cliente / Llamada encontrada: \n" + aux->getData().toString();
-            break;
+            throw ListException("Memoria insuficiente - operator = ");
+        }
+
+        if (aux1 == nullptr)
+        {
+            anchor = node;
         }
         else
         {
+            aux1 = node;
             aux = aux->getNext();
         }
-    } while (aux != nullptr);
-    return myString;
-}
-
-// TESTEAR (Sin Uso)
-Client ClientList::retrieve(SimplyNode& p)
-{
-    if (!(isValidPos(p)))
-    {
-        Client aux;
-        return aux;
     }
-    return p.getData();
 }
 
 // TESTEAR (Esperanzador)
 string ClientList::toString() // E6
 {
-    SimplyNode* aux = anchor;
+    SimplyNode* aux(anchor);
     string result;
+
     int i = 0;
-    do {
+
+    while (aux != nullptr)
+    {
         i++;
+
         result += "\n\t(Llamada " + to_string(i) + ")\n" + aux->getData().toString();
+        
         aux = aux->getNext();
-    } while (aux != nullptr);
+    }
+
     return result;
 }
 
-// TESTEAR (Reconstruido)
-SimplyNode* ClientList::getPrevPos(const SimplyNode& p)
+// TESTEAR (Esperanzador)
+SimplyNode* ClientList::getPrevPos(SimplyNode* p) const
 {
-    SimplyNode* aux = anchor;
-    while (aux->getNext()->getData().getTimeAtention() != p.getData().getTimeAtention()) {
+    if (p == anchor || !isValidPos(p))
+    {
+        return nullptr;
+    }
+
+    SimplyNode* aux(anchor);
+
+    while (aux->getNext() != p)
+    {
         aux = aux->getNext();
     }
+
     return aux;
 }
 
@@ -92,100 +114,111 @@ SimplyNode* ClientList::getFirstPos() const {
     return anchor;
 }
 
-// TESTEAR (Reconstruido)
+// TESTEAR (Esperanzador)
 SimplyNode* ClientList::getLastPos() const
 {
-    if(anchor == nullptr) {
+    if (isEmpty)
+    {
         return nullptr;
     }
 
     SimplyNode* aux = anchor;
 
-    while (aux->getNext() != nullptr) {
+    while (aux->getNext() != nullptr)
+    {
         aux = aux->getNext();
     }
+
     return aux;
 }
 
-// EXITO (Sin Uso)
-SimplyNode* ClientList::getNextPos(SimplyNode& d) const
+// TESTEAR (Esperanzador)
+SimplyNode* ClientList::getNextPos(SimplyNode* d) const
 {
-    return d.getNext();
-}
-
-// TESTEAR (Reconstruido)
-void ClientList::deleteClient(SimplyNode* del) // E5 E6
-{
-    getPrevPos(*del)->setNext(del->getNext());
-    delete del;
-}
-
-// TESTEAR (Reconstruido)
-void ClientList::insertOrdered(SimplyNode& call)
-{
-    SimplyNode* i = anchor;
-    Client aux = Client();
-    int myInt = 0;
-    bool flag = false;
-
-    call.setNext(anchor);
-    if (anchor == nullptr)
+    if (isValidPos(d))
     {
-        anchor = &call;
+        return d->getNext();
+    }
+}
+
+// TESTEAR (Esperanzador)
+void ClientList::deleteClient(SimplyNode* del)
+{
+    if (!isValidPos(del))
+    {
+        throw ListException("La Posicion es Invalida - deleteClient");
+    }
+
+    if (del == anchor)
+    {
+        anchor = del->getNext();
     }
     else
     {
-        SimplyNode* j = anchor->getNext();
-        // Insertando al inicio
-        call.setNext(anchor);
-        anchor = &call;
+        getPrevPos(del)->setNext(del->getNext());
+    }
 
-        // Calculando tamaño de la lista
-        do {
-            myInt++;
-            i = i->getNext();
-        } while (i != nullptr);
-        i = anchor;
+    delete del;
+}
 
-        // Ejecutando ordenamiento [BoobleSort]
+// TESTEAR (Esperazador)
+void ClientList::insertClient(SimplyNode* node, const Client& client)
+{
+    if (node != nullptr && !isValidPos(node)) {
+        throw ListException("La Posición es Invalida - insertOrdered");
+    }
 
-        do {
-            i = anchor;
-            j = anchor->getNext();
-            flag = false;
+    SimplyNode* aux(new SimplyNode(client));
 
-            for (int k = 0; k < myInt; k++) {
-                if (i > j) {
-                    // Swap
-                    aux = i->getData();
-                    i->setData(j->getData());
-                    j->setData(aux);
-                    flag = true;
-                }
-                j = j->getNext();
-                i = i->getNext();
-            }
-        } while (flag);
+    if (aux == nullptr) {
+        throw ListException("Memoria Insuficiente para la Operación - insertOrdered");
+    }
+
+    if (node == nullptr) {
+        aux->setNext(anchor);
+        anchor = aux;
+    }
+    else
+    {
+        aux->setNext(node->getNext());
+        node->setNext(aux);
     }
 }
 
-// EXITO
-bool ClientList::isValidPos(SimplyNode& p)
+// TESTEAR (Esperanzador)
+void ClientList::insertOrdered(const Client& c)
 {
-    if (&p == nullptr)
-    {
-        return false;
+    SimplyNode* aux(anchor);
+    SimplyNode* aux1(nullptr);
+
+    while (aux != nullptr && c > aux->getData()) {
+        aux1 = aux;
+        aux = aux->getNext();
     }
-    else {
-        return true;
+
+    insertClient(aux1, c);
+}
+
+// TESTEAR (Esperanzador)
+bool ClientList::isValidPos(const SimplyNode* p) const
+{
+    SimplyNode* aux(anchor);
+
+    while (aux != nullptr) {
+        if (aux == p) {
+            return true;
+        }
+
+        aux = aux->getNext();
     }
+
+    return false;
 }
 
 // EXITO
 void ClientList::deleteAll()
 {
-    SimplyNode* aux = nullptr;
-
+    SimplyNode* aux(nullptr);
     while (anchor != nullptr)
     {
         aux = anchor;
@@ -200,13 +233,16 @@ bool ClientList::isEmpty()
     return anchor == nullptr;
 }
 
+// TESTEAR 
 void ClientList::writeToDisk(string& employeeNumber)
 {
     SimplyNode* aux = anchor;
     ofstream file;
     string fileName;
+
     fileName += employeeNumber + ".clientlist";
     file.open("backup.agentlist");
+
     if (file) {
         while (aux != nullptr) {
             file << aux->getData();
@@ -222,9 +258,11 @@ void ClientList::readFromDisk(string& employeeNumber)
     Client* ncall = new Client();
     ifstream file;
     string fileName;
+
     int myInt = 0;
 
     fileName += employeeNumber + ".clientlist";
+
     if (file) {
         file >> *ncall;
     }

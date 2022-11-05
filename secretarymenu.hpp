@@ -13,33 +13,30 @@
 
 class SecretaryMenu
 {
-public:
-    //CONSTRUCTOR
-    SecretaryMenu();
-    //SecretaryMenu(AgentList*);
+private:
+    AgentList* aList;
 
-    //MAIN MENU
     void mainMenu();
+    
+    void addAgentMenu();
+    void delAgentMenu();
+    void modAgentMenu();
+    void sornAgentListMenu();
 
-    //AGENT MENUs MANAGER
-    void addAgent(AgentList*); // (READY) E9
-    void delAgent(AgentList*); // (READY) E9
-    void showAgentList(AgentList*); // (READY) E9
-    void sornAgentList(AgentList*);
-    void findAgent(AgentList*); // (READY) E9
-    void modAgent(AgentList*); // (READY) E9
+    void showAgentListMenu();
+    void findAgentMenu();
+    
+    void addClientToAgentMenu();
+    void deleteClientToAgentMenu();
+    void modAtDrtnToAgentMenu();
 
-    //CLIENT MENUs MANAGER
-    void addClientToAgent(AgentList*); // (READY)
-    void deleteClientToAgent(AgentList*); // (READY)
-    void modAtDrtnToAgent(AgentList*); // (READY) E6
-
-    //DISK MENUs
-    void saveLists(AgentList*);
-    void loadLists(AgentList*);
+    void saveListsMenu();
+    void loadListsMenu();
 
     void pause();
 
+public:
+    SecretaryMenu(AgentList*);
 };
 
 #endif // SECRETARYMENU_HPP

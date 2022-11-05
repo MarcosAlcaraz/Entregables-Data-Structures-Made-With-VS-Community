@@ -4,22 +4,23 @@
 
 using namespace std;
 
-SecretaryMenu::SecretaryMenu() {}
+// TESTEAR
+SecretaryMenu::SecretaryMenu(AgentList* al) : aList(al) {
+    mainMenu();
+}
 
-// SecretaryMenu::SecretaryMenu(AgentList*) { }
-
-//EXITO
+// TESTEAR
 void SecretaryMenu::mainMenu()
 {
-    AgentList* aList = new AgentList();
     int menu0;
+    char myChar;
     do
     {
         system("cls");
-        cout << "MENU PRINCIPAL";
+        cout << "Alcaraz Call Center / Menu principal";
         cout << endl << endl << "[          Agentes         ]";
         cout << endl << "\t1) Agregar";
-        cout << endl << "\t2) Eliminar";
+        cout << endl << "\t2) Eliminar"; 
         cout << endl << "\t3) Mostrar";
         cout << endl << "\t4) Ordenar";
         cout << endl << endl << "[         Clientes         ]";
@@ -29,80 +30,146 @@ void SecretaryMenu::mainMenu()
         cout << endl << endl << "[       Guardar/Cargar     ]";
         cout << endl << "\t8) Guardar";
         cout << endl << "\t9) Cargar.";
+        cout << endl << endl << "\t0) Salir.";
         cout << endl << endl << ": ";
 
         cin >> menu0;
+        cin.ignore();
 
         switch (menu0)
         {
         case 1:
-            addAgent(aList);
+            addAgentMenu();
             break;
         case 2:
-            delAgent(aList);
+            delAgentMenu();
             break;
         case 3:
-            showAgentList(aList);
+            showAgentListMenu();
             break;
         case 4:
-            sornAgentList(aList);
+            sornAgentListMenu();
             break;
         case 5:
-            addClientToAgent(aList);
+            addClientToAgentMenu();
             break;
         case 6:
-            deleteClientToAgent(aList);
+            deleteClientToAgentMenu();
             break;
         case 7:
-            modAtDrtnToAgent(aList);
+            modAtDrtnToAgentMenu();
             break;
         case 8:
-            saveLists(aList);
+            saveListsMenu();
             break;
         case 9:
-            loadLists(aList);
+            loadListsMenu();
+            break;
+        case 0:
+            system("cls");
+            cout << "Alcaraz Call Center / Menu principal / Salir";
+            cout << endl << endl << "Salir del registro [S/N]\n: ";
+
+            cin >> myChar;
+            cin.ignore();
+
+            myChar = toupper(myChar);
+
+            if (myChar == 'S')
+            {
+                system("cls");
+                cout << "Alcaraz Call Center / Menu principal / Salir / Adios";
+                cout << endl << endl << "Saliendo del programa..." << endl << endl;
+            }
+            else
+            {
+                system("cls");
+                cout << "Alcaraz Call Center / Menu principal / Salir";
+                cout << endl << endl << "Retronando al Menu Principal" << endl << endl;
+
+                pause();
+            }
             break;
         default:
+            system("cls");
+            cout << "Alcaraz Call Center / Menu principal / Opcion Invalida";
+            cout << endl << endl << "Escoja una opcion del menu..." << endl << endl;
+
+            pause();
             break;
         }
     } while (menu0 != 0);
 }
 
-//EXITO
-void SecretaryMenu::addAgent(AgentList* aList)
+// RECONSTRUIR (YA JALABA)
+void SecretaryMenu::addAgentMenu()
 {
-    // AGREGAR NUEVO AGENTE
-    Agent* nag = new Agent();           // nag = nEW agENT
-    DoubleNode* ndn = new DoubleNode(); // nEW dOUBLE nODE
-    Name* N = new Name();
-    Time* T = new Time();
-    string cadena;
+    Agent nag;
+    DoubleNode* ndn(nullptr);
+
+    Name N;
+    Time T;
+
+    string myString;
     int o;
 
-    // Nombre y Apellido
-    system("cls");
-    cout << endl <<"AGREGAR NUEVO AGENTE" << endl << endl;
-    cout << "Nombre(s): ";
-
-    cin.ignore();
-    getline(cin, cadena);
-
-    N->setName(cadena);
-
-    system("cls");
-    cout << endl <<"AGREGAR NUEVO AGENTE" << endl << endl;
-    cout << "Apellidos: ";
-
-    getline(cin, cadena);
-
-    N->setLastName(cadena);
-    nag->setName(*N);
-
-    // Especialidad del Agente
+    // Numero de empleado
     do
     {
         system("cls");
-        cout << endl << "\tAGREGAR NUEVO AGENTE" << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Numero de Empleado" << endl;
+        cout << "Numero de empleado [9 digitos] " << endl << ": ";
+
+        cin >> o;
+        cin.ignore();
+
+        if (o > 999999999 || o < 100000000)
+        {
+            cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Numero de Empleado / Opcion Invalida" << endl;
+            cout << "El numero de Empleado debe ser mayor a 100,000,000 y menor 999,999,999" << endl;
+            pause();
+        }
+    } while (o > 999999999 || o < 100000000);
+
+    myString = to_string(o);
+    nag.setEmployeeNumber(myString);
+
+    ndn = aList->findData(nag);
+
+    if (ndn != nullptr)
+    {
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Numero de Empleado / Agente ya Existente" << endl;
+        cout << "Este agente ya esta almacenado en la lista" << endl << endl;
+        cout << "Retornando al Menu Principal" << endl << endl;
+        
+        pause();
+
+        return;
+    }
+
+    // Nombre
+    system("cls");
+    cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Nombre" << endl;
+    cout << endl << "Nombre(s): ";
+
+    getline(cin, myString);
+
+    N.setName(myString);
+
+    system("cls");
+    cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Apellido" << endl;
+    cout << endl << "Apellidos: ";
+
+    getline(cin, myString);
+
+    N.setLastName(myString);
+    nag.setName(N);
+
+    // Especialidad
+    do
+    {
+        system("cls");
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Especialidad" << endl;
         cout << endl << "\tEspecialidad. ";
         cout << endl << "\t1) Servidores.";
         cout << endl << "\t2) De Escritorio.";
@@ -111,152 +178,171 @@ void SecretaryMenu::addAgent(AgentList* aList)
         cout << endl << "\t5) Impresoras.";
         cout << endl << "\t6) Redes."<< endl <<": ";
         cin >> o;
+        cin.ignore();
 
         switch (o)
         {
         case 1:
-            cadena = "Servidores";
+            myString = "Servidores";
             break;
         case 2:
-            cadena = "De Escritorio";
+            myString = "De Escritorio";
             break;
         case 3:
-            cadena = "Portatiles";
+            myString = "Portatiles";
             break;
         case 4:
-            cadena = "Linux";
+            myString = "Linux";
             break;
         case 5:
-            cadena = "Impresoras";
+            myString = "Impresoras";
             break;
         case 6:
-            cadena = "Redes";
+            myString = "Redes";
             break;
         default:
             system("cls");
+            cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Opcion Invalida" << endl;
             cout << "Escoja una opcion del menu...";
             pause();
             break;
         }
     } while (o > 6 || o < 1);
 
-    nag->setSpeciality(cadena);
+    nag.setSpeciality(myString);
 
-    // Numero de Extension del Agente
-    system("cls");
-    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
-    cout << "Numero de Extension [4 digitos]" << endl <<": ";
+    // Numero de Extension
+    do
+    {
+        system("cls");
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente" << endl;
+        cout << "Numero de Extension [4 digitos y Mayor a 999]" << endl << ": ";
 
-    cin.ignore();
-    cin >> o;
+        cin >> o;
+        cin.ignore();
 
-    cadena = to_string(o);
-    nag->setExtensionNumber(cadena);
+        if (o > 9999 || o < 1000)
+        {
+            cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Opcion Invalida" << endl;
+            cout << "El numero de Extension debe ser mayor a 999 y menor 9,999" << endl;
+            pause();
+        }
+    } while (o > 9999 || o < 1000);
 
-    // Numero de empleado del Agente
-    system("cls");
-    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
-    cout << "Numero de empleado [9 digitos] " << endl << ": ";
-
-    cin >> o;
-
-    cadena = to_string(o);
-    nag->setEmployeeNumber(cadena);
+    myString = to_string(o);
+    nag.setExtensionNumber(myString);
 
     // Hora de entrada
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Hora de entrada" << endl;
         cout << "Hora de entrada [HH:] " << endl << ": ";
         cin >> o;
+        cin.ignore();
     } while (o > 24 || o < 0);
-    T->setHour(o);
+
+    T.setHour(o);
 
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Minuto de entrada" << endl;
         cout << "Minuto de entrada [:MM:] " << endl << ": ";
         cin >> o;
+        cin.ignore();
     } while (o > 59 || o < 0);
-    T->setMinute(o);
+
+    T.setMinute(o);
 
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Segundo de entrada" << endl;
         cout << "Segundo de entrada [:SS] " << endl << ": ";
         cin >> o;
+        cin.ignore();
     } while (o > 59 || o < 0);
-    T->setSecond(o);
-    nag->setStartTime(*T);
+
+    T.setSecond(o);
+    nag.setStartTime(T);
 
     // Hora de salida
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Hora de Salida" << endl;
         cout << "Hora de Salida [HH:] " << endl << ": ";
         cin >> o;
+        cin.ignore();
     } while (o > 24 || o < 0);
-    T->setHour(o);
+
+    T.setHour(o);
 
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Minuto de Salida" << endl;
         cout << "Minuto de Salida [:MM:] " << endl << ": ";
 
         cin >> o;
+        cin.ignore();
     } while (o > 59 || o < 0);
-    T->setMinute(o);
+
+    T.setMinute(o);
 
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Segundo de Salida" << endl;
         cout << "Segundo de Salida [:SS] " << endl << ": ";
         cin >> o;
+        cin.ignore();
     } while (o > 59 || o < 0);
-    T->setSecond(o);
-    nag->setEndTime(*T);
+
+    T.setSecond(o);
+    nag.setEndTime(T);
 
     // Horas Extra
     do
     {
         system("cls");
-        cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Horas Extra" << endl;
         cout << "Horas extras [0-4] " << endl << ": ";
         cin >> o;
+        cin.ignore();
 
         if (o > 4)
         {
-            cout << endl << "Por favor proporcione un n�mero de horas menor a 4." << endl << "Los trabajadores no pueden trabajar mas de 4 horas" << endl << endl;
+            system("cls");
+            cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Horas Extra / Numero mayor" << endl;
+            cout << endl << "Por favor proporcione un numero de horas menor a 4." << endl << "Los trabajadores no pueden trabajar mas de 4 Horas Extra" << endl << endl;
         }
         else if (o < 0)
         {
+            system("cls");
+            cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Horas Extra / Numero menor" << endl;
             cout << endl << "Por favor proporcione un numero de horas mayor o igual a 0." << endl << endl;
         }
     } while (o > 4 || o < 0);
 
-    cadena = to_string(o);
-    nag->setExtraHours(cadena);
-    ndn->setData(*nag);
+    myString = to_string(o);
+    nag.setExtraHours(myString);
+    ndn->setData(nag);
+
     aList->insertAgent(*ndn);
 
     system("cls");
-    cout << endl << "AGREGAR NUEVO AGENTE" << endl << endl;
+    cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Registro Exitoso" << endl;
     cout << "Agente agregado Exitosamente" << endl << endl;
 
-    cout << "Datos del Nuevo agente" << endl << endl << nag->toString(false);
+    cout << "Datos del Nuevo agente" << endl << endl << nag.toString(false);
 
-    cin.ignore();
     pause();
 }
 
-// ERROR
-void SecretaryMenu::delAgent(AgentList* aList)
+// RECONSTRUIR (MUCHO)
+void SecretaryMenu::delAgentMenu()
 {
     DoubleNode* aux = aList->getFirstPos();
     string myString;
@@ -335,8 +421,8 @@ void SecretaryMenu::delAgent(AgentList* aList)
     }
 }
 
-// EXITO
-void SecretaryMenu::showAgentList(AgentList* aList)
+// RECONSTRUIR (PUEDE QUE DEBA SER DIFERENTE)
+void SecretaryMenu::showAgentListMenu()
 {
     DoubleNode* aux = aList->getFirstPos();
     char op;
@@ -382,8 +468,8 @@ void SecretaryMenu::showAgentList(AgentList* aList)
     pause();
 }
 
-// PENDIENTE
-void SecretaryMenu::sornAgentList(AgentList* aList)
+// RECONSTRUIR
+void SecretaryMenu::sornAgentListMenu()
 {
     int myInt;
 
@@ -406,8 +492,8 @@ void SecretaryMenu::sornAgentList(AgentList* aList)
     }
 }
 
-// TESTEAR
-void SecretaryMenu::findAgent(AgentList* aList)
+// RECONSTRUIR (MUCHO)
+void SecretaryMenu::findAgentMenu()
 {
     DoubleNode* aux = aList->getFirstPos();
     string myString;
@@ -445,8 +531,8 @@ void SecretaryMenu::findAgent(AgentList* aList)
     } while (aux != nullptr);
 }
 
-// TESTEAR
-void SecretaryMenu::modAgent(AgentList* aList)
+// RECONSTRUIR
+void SecretaryMenu::modAgentMenu()
 {
     Name n;
     Time t;
@@ -657,27 +743,52 @@ void SecretaryMenu::modAgent(AgentList* aList)
     } while (aux != nullptr);
 }
 
-// TESTEAR
-void SecretaryMenu::addClientToAgent(AgentList* aList)
+// RECONSTRUIR (MUCHO)
+void SecretaryMenu::addClientToAgentMenu()
 {
-    SimplyNode* node = new SimplyNode();
-    DoubleNode* aux = aList->getFirstPos();
-    Client* call = new Client();
-    Time* t = new Time();
-    string cadena;
+    SimplyNode* node(nullptr);
+    Client call;
+    Time t;
+
+    string myString;
     int x;
     bool flag = false;
 
     // Busqueda de cliente por numero de empleado
     system("cls");
-    cout << "AGREGAR CLIENTE A UN AGENTE";
-    cout << endl << "Numero de empleado [9 digitos]" << endl << ": ";
+    cout << "Alcaraz Call Center / Menu principal / Agregar Cliente / Numero de Empleado" << endl;
+    cout << "Numero de empleado [9 digitos] " << endl << ": ";
 
-    cin >> cadena;
+    cin >> x;
+    cin.ignore();
+
+    if (x > 999999999 || x < 100000000)
+    {
+        cout << "Alcaraz Call Center / Menu principal / Agregar Cliente / Numero de Empleado / Opcion Invalida" << endl;
+        cout << "El numero de Empleado debe ser mayor a 100,000,000 y menor 999,999,999" << endl;
+        pause();
+    }
+    } while (o > 999999999 || o < 100000000);
+
+    myString = to_string(o);
+    nag.setEmployeeNumber(myString);
+
+    ndn = aList->findData(nag);
+
+    if (ndn != nullptr)
+    {
+        cout << "Alcaraz Call Center / Menu principal / Agregar Agente / Numero de Empleado / Agente ya Existente" << endl;
+        cout << "Este agente ya esta almacenado en la lista" << endl << endl;
+        cout << "Retornando al Menu Principal" << endl << endl;
+
+        pause();
+
+        return;
+    }
 
     do
     {
-        if (aux->getData().getEmployeeNumber() == cadena)
+        if (aux.getData().getEmployeeNumber() == myString)
         {
             // Hora de atencion
             do
@@ -776,7 +887,7 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
             if (aux == nullptr) {
                 system("cls");
                 cout << "Agente no encontrado" << endl;
-                cout << cadena << " no fue localizado." << endl << endl;
+                cout << myString << " no fue localizado." << endl << endl;
 
                 flag = true;
                 cin.ignore();
@@ -786,8 +897,8 @@ void SecretaryMenu::addClientToAgent(AgentList* aList)
     } while (!flag);
 }
 
-// TESTEAR
-void SecretaryMenu::deleteClientToAgent(AgentList* aList)
+// RECONSTRUIR
+void SecretaryMenu::deleteClientToAgentMenu()
 {
     int x;
     string myString;
@@ -861,8 +972,8 @@ void SecretaryMenu::deleteClientToAgent(AgentList* aList)
     }
 }
 
-// TESTEAR
-void SecretaryMenu::modAtDrtnToAgent(AgentList* aList) // E6
+// RECONSTRUIR
+void SecretaryMenu::modAtDrtnToAgentMenu() // E6
 {
     Time* t = new Time();
     DoubleNode* a = aList->getFirstPos();
@@ -933,8 +1044,8 @@ void SecretaryMenu::modAtDrtnToAgent(AgentList* aList) // E6
     s->getData().setTimeAtention(*t);
 }
 
-// PENDIENTE
-void SecretaryMenu::saveLists(AgentList* aList)
+// RECONSTRUIR
+void SecretaryMenu::saveListsMenu()
 {
     char myChar;
 
@@ -972,8 +1083,8 @@ void SecretaryMenu::saveLists(AgentList* aList)
     }
 }
 
-// PENDIENTE
-void SecretaryMenu::loadLists(AgentList* aList)
+// RECONSTRUIR
+void SecretaryMenu::loadListsMenu()
 {
     char myChar;
 
@@ -1015,5 +1126,5 @@ void SecretaryMenu::loadLists(AgentList* aList)
 void SecretaryMenu::pause()
 {
     cout << "\nEnter para continuar...";
-    cin.ignore();
+    getchar();
 }

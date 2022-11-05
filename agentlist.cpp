@@ -20,7 +20,7 @@ AgentList::~AgentList()
 // EXITO
 void AgentList::insertAgent(DoubleNode& nuevoAgente) // E7
 {
-    nuevoAgente.setNext(anchor); //nuevoAgente apunta a lo que apunta anchor
+    nuevoAgente.setNext(anchor);
     anchor = &nuevoAgente;
 }
 
@@ -30,25 +30,47 @@ bool AgentList::isEmpty() // E7
     return anchor == nullptr;
 }
 
-// EXITO
-bool AgentList::isValidPos(DoubleNode& p)
+// TESTEAR
+bool AgentList::isValidPos(DoubleNode* p)
 {
-    return &p != nullptr;
+    DoubleNode* aux(anchor);
+
+    while (aux != nullptr)
+    {
+        if (aux == p)
+        {
+            return true;
+        }
+
+        aux = aux->getNext();
+    }
+
+    return false;
 }
 
-// EXITO
+// TESTEAR
 string AgentList::toString(bool myBool) // E7
 {
+    if (isEmpty)
+    {
+        return "La lista esta vacia.";
+    }
+
     DoubleNode* aux = anchor;
+
     int i = 0;
+
     string result;
 
-    do {
+    while (aux != nullptr)
+    {
         i++;
 
         result += "\n(" + to_string(i) + ")\n" + aux->getData().toString(myBool);
+
         aux = aux->getNext();
-    } while (aux != nullptr);
+    }
+
     return result;
 }
 
@@ -65,126 +87,149 @@ void AgentList::deleteAll()
     }
 }
 
-// ERROR (TESTEAR)
+// TESTEAR
 void AgentList::deleteNode(DoubleNode* del)
 {
-    del->getPrev()->setNext(del->getNext());
-    del->getNext()->setPrev(del->getPrev());
+    if (!isValidPos(del))
+    {
+        throw ListException("La Posicion es Invalida - deleteClient");
+    }
+
+    if (del == anchor)
+    {
+        anchor = del->getNext();
+    }
+    else
+    {
+        del->getPrev()->setNext(del->getNext());
+        del->getNext()->setPrev(del->getPrev());
+    }
+
     delete del;
 }
 
-void AgentList::sortByName(DoubleNode*, DoubleNode*)
+// Reconstruir Sort By Name (URGENTE)
+/*
+void AgentList::sortByName(DoubleNode* leftEdge, DoubleNode* rightEdge)
 {
-}
+     if(leftEdge == rightEdge)
+     { //En caso de haber un solo elemento
+         return;
+     }
+     if (leftEdge->getNext() == rightEdge)
+     { // si hay solo dos elementos
+         if(leftEdge->getData().getName() > rightEdge->getData().getName())
+         {
+             swapPtr(leftEdge, rightEdge);
+         }
+         return;
+     }
 
-void AgentList::sortBySpeciality(DoubleNode*, DoubleNode*)
-{
-}
+     //particion de la lista
+     DoubleNode* i(leftEdge);
+     DoubleNode* j(rightEdge);
 
-// PENDIENTE
-// void AgentList::sortByName(DoubleNode* leftEdge, DoubleNode* rightEdge) {
-//     if(leftEdge == 'rightedge') { //En caso de haber un solo elemento
-//         return;
-//     }
-//     if(leftEdge->getNext() == rightEdge) { // si hay solo dos elementos
-//         if(leftEdge->getData().getName() > rightEdge->getData().getName()) {
-//             swapPtr(leftEdge, rightEdge);
-//         }
-//         return;
-//     }
+     while (i != j)
+     {
+         while (i != j && i ->getData().getName() <= rightEdge->getData().getName())
+         {
+             i = i->getNext();
+         }
+     }
+     while(i != j && j->getData().getName() >= rightEdge->getData().getName())
+     {
+         j = j->getPrev();
 
-//     //particion de la lista
-//     StudentNode* i(leftEdge);
-//     StudentNode* j(rightEdge);
-
-//     while (i != j)
-//     {
-//         while (i != j && i ->getData().getName() <= rightEdge->getData().getName())
-//         {
-//             i = i->getNext();
-//         }
-//     }
-//     while(i != j && j->getData().getName() >= rightEdge->getData().getName())
-//     {
-//         j = j->getPrev();
-//         if(i != j)
-//         {
-//             swapPtr(i, j);
-//         }
-//     }
-//     if(i != rightEdge)
-//     {
-//         swapPtr(i, rightEdge);
-//     }
+         if(i != j)
+         {
+             swapPtr(i, j);
+         }
+     }
+     if(i != rightEdge)
+     {
+         swapPtr(i, rightEdge);
+     }
 
 // PENDIENTE
-//     //Divide Y vencer�s
-//     if(leftEdge != i) {
-//         sortByName(leftEdge, i->getPrev());
-//     }
-//     if(rightEdge != i) {
-//         sortByName(i->getNext(), rightEdge);
-//     }
-// }
+     //Divide Y venceras
+     if(leftEdge != i)
+     {
+         sortByName(leftEdge, i->getPrev());
+     }
+     if(rightEdge != i)
+     {
+         sortByName(i->getNext(), rightEdge);
+     }
+ }
+*/
 
-// PENDIENTE
-// void StudentList::sortByGrade() {
-//     sortByGrade(header->getNext(), header->getPrev());
-// }
+//Reconstruir Sort by Specialty (URGENTE)
+/*
+ void AgentList::sortBySpeciality()
+ {
+     sortByGrade(header->getNext(), header->getPrev());
+ }
 
-// PENDIENTE
-// void StudentList::SortByGrade() {
-//     if(leftEdge == 'rightedge') { //En caso de haber un solo elemento
-//         return;
-//     }
-//     if(leftEdge->getNext() == rightEdge) { // si hay solo dos elementos
-//         if(leftEdge->getData().getGrade() > rightEdge->getData().getGrade()) {
-//             swapPtr(leftEdge, rightEdge);
-//         }
-//         return;
-//     }
+//Reconstruir
+ void AgentList::sortBySpeciality()
+ {
+     if(leftEdge == rightEdge)
+     { //En caso de haber un solo elemento
+         return;
+     }
+     if(leftEdge->getNext() == rightEdge)
+     { // si hay solo dos elementos
+         if(leftEdge->getData().getGrade() > rightEdge->getData().getGrade())
+         {
+             swapPtr(leftEdge, rightEdge);
+         }
+         return;
+     }
 
-//     //particion de la lista
-//     StudentNode* i(leftEdge);
-//     StudentNode* j(rightEdge);
+     //particion de la lista
+     StudentNode* i(leftEdge);
+     StudentNode* j(rightEdge);
 
-//     while (i != j)
-//     {
-//         while (i != j && i ->getData().getGrade() <= rightEdge->getData().getGrade())
-//         {
-//             i = i->getNext();
-//         }
-//     }
-//     while(i != j && j->getData().getGrade() >= rightEdge->getData().getGrade())
-//     {
-//         j = j->getPrev();
-//         if(i != j)
-//         {
-//             swapPtr(i, j);
-//         }
-//     }
-//     if(i != rightEdge)
-//     {
-//         swapPtr(i, rightEdge);
-//     }
+     while (i != j)
+     {
+         while (i != j && i ->getData().getGrade() <= rightEdge->getData().getGrade())
+         {
+             i = i->getNext();
+         }
+     }
+     while(i != j && j->getData().getGrade() >= rightEdge->getData().getGrade())
+     {
+         j = j->getPrev();
+         if(i != j)
+         {
+             swapPtr(i, j);
+         }
+     }
+     if(i != rightEdge)
+     {
+         swapPtr(i, rightEdge);
+     }
 
-//     //Divide Y vencer�s
-//     if(leftEdge != i) {
-//         sortByName(leftEdge, i->getPrev());
-//     }
-//     if(rightEdge != i) {
-//         sortByName(i->getNext(), rightEdge);
-//     }
-// }
+     //Divide Y venceras
+     if(leftEdge != i) {
+         sortByName(leftEdge, i->getPrev());
+     }
 
-// PENDIENTE
-// void StudentList::swapPtr(StudentNodet* a, StudentNode* b) {
-//     Student* aux(a->getDataPtr());
-//     a->setDataPtr(b->getDataPtr());
-//     b->sedDataPtr(aux);
-// }
+     if(rightEdge != i) {
+         sortByName(i->getNext(), rightEdge);
+     }
+ }
+ 
+// Reconstruir SwapPtr (URGENTE)
+ void AgentList::swapPtr(DoubleNode* a, DoubleNode* b)
+ {
+     Student* aux(a->getDataPtr());
+     a->setDataPtr(b->getDataPtr());
+     b->sedDataPtr(aux);
+ }
+*/  
 
-// PENDIENTE
+// Reconstruir
 bool AgentList::readFromDisk()
 {
     DoubleNode* ndn = new DoubleNode();
@@ -194,15 +239,15 @@ bool AgentList::readFromDisk()
     int myInt = 0;
 
     file.open("backup.agentlist");
-    if (!file) {
+    if (!file)
+    {
         return false;
     }
     //while (getline(file, myString)) { }
     file >> *nag;
 }
     
-
-// PENDIENTE
+// Reconstruir
 bool AgentList::writeToDisk()
 {
     DoubleNode* aux = anchor;
@@ -233,21 +278,22 @@ DoubleNode* AgentList::getFirstPos() const
     return anchor;
 }
 
-// TESTEAR (Reconstruido)
+// TESTEAR
 DoubleNode* AgentList::getLastPos() const
 {
-    if (anchor == nullptr)
+    if (isEmpty)
     {
         return nullptr;
     }
 
     DoubleNode* aux = anchor;
 
-    while (aux->getNext() != nullptr) {
+    while (aux->getNext() != nullptr)
+    {
         aux = aux->getNext();
     }
-    return aux;
 
+    return aux;
 }
 
 // EXITO
@@ -263,33 +309,25 @@ DoubleNode* AgentList::getPreviousPos(DoubleNode& p) const
 }
 
 // TESTEAR
-DoubleNode* AgentList::findData(DoubleNode& p)
+DoubleNode* AgentList::findData(const Agent& a) const
 {
-    if (!(isValidPos(p)))
+    DoubleNode* aux(anchor);
+
+    while (aux != nullptr && aux->getData() != a)
     {
-        return nullptr;
+        aux = aux->getNext();
     }
 
-    DoubleNode* aux = anchor;
-
-    do {
-        if (aux->getData().getEmployeeNumber() == p.getData().getEmployeeNumber())
-        {
-            return aux;
-        }
-        else {
-            aux = aux->getNext();
-        }
-    } while (aux->getData().getEmployeeNumber() != p.getData().getEmployeeNumber());
+    return aux;
 }
 
 // TESTEAR
-Agent AgentList::retrieve(DoubleNode& p)
+Agent AgentList::retrieve(DoubleNode* p)
 {
-    if (!(isValidPos(p)))
+    if (!isValidPos(p))
     {
-        Agent aux;
-        return aux;
+        throw ListException("La posicion es Invalida - retrieve");
     }
-    return p.getData();
+
+    return p->getData();
 }

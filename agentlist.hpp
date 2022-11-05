@@ -17,23 +17,23 @@ public:
     ~AgentList();
 
     bool isEmpty();
-    bool isValidPos(DoubleNode&);
+    bool isValidPos(DoubleNode*);
 
     void insertAgent(DoubleNode&);
     void deleteAll();
     void deleteNode(DoubleNode*);
-    void sortByName(DoubleNode*, DoubleNode*);
-    void sortBySpeciality(DoubleNode*, DoubleNode*);
+    //void sortByName(DoubleNode*, DoubleNode*);
+    //void sortBySpeciality(DoubleNode*, DoubleNode*);
 
     std::string toString(bool);
 
-    Agent retrieve(DoubleNode&);
+    Agent retrieve(DoubleNode*);
 
     DoubleNode* getFirstPos() const;
     DoubleNode* getLastPos() const;
     DoubleNode* getNextPos(DoubleNode&) const;
     DoubleNode* getPreviousPos(DoubleNode&) const;
-    DoubleNode* findData(DoubleNode&);
+    DoubleNode* findData(const Agent&) const;
 
     bool readFromDisk();
     bool writeToDisk();
